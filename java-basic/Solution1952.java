@@ -17,27 +17,11 @@ class Solution1952{
 
             int min=0;
             
-            //1 day
-            for(int i=0; i<12; i++){
-                int sum=sum+plan[i];
-                int result=sum*costs[0];
-                temp.add(result);
-            }
-
-            //annual use count
-            int count=0;
-            for(int i=0; i<12; i++){
-                if(plan[i]>0){
-                    count++;
+            for(int i=N; i>=0; i--){
+                for(){
+                    
                 }
             }
-
-            //1 month
-            int result=costs[1]*count;
-
-            //3 month
-            int a=count/3;
-            int b=count%3;
             
             
         }
