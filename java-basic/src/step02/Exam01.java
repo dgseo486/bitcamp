@@ -1,3 +1,5 @@
+// 패키지 테스트
+
 package step02;
 
 public class Exam01 {
