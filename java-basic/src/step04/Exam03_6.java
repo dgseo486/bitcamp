@@ -9,6 +9,9 @@ class Exam03_6 {
 
         //r = 10 & 20; // 컴파일 오류
         int r2 = 10 & 20;
+        System.out.println(Integer.toBinaryString(10));
+        System.out.println(Integer.toBinaryString(20));
+        System.out.println(r2);
         //float r3 = 10.2f & 20.3f; // 컴파일 오류
     }
 }
