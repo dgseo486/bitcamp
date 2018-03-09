@@ -16,8 +16,8 @@ public class App {
 
         boolean flag = true;
         while (flag) {
+            System.out.print("명령> ");
             String cmd = keyScan.nextLine();
-
             StringTokenizer str = new StringTokenizer(cmd, " ");
             String[] temp = new String[2];
             int j=0;
@@ -25,7 +25,6 @@ public class App {
                 temp[j] = str.nextToken();
                 j++;
             }
-
             if (temp[0].equals("quit")) {
                 System.out.println("안녕히가세요!");
                 flag = false;
@@ -98,17 +97,17 @@ public class App {
                     System.out.println("아이디를 입력하시기 바랍니다.");
                 }else{
                     boolean memCheck = true;
-                for (int i = 0; i < memberCount; i++) {
-                    if (temp[1].equals(members[i].memID)) {
-                        System.out.println("아이디: " + members[i].memID);
-                        System.out.println("이메일: " + members[i].memEM);
-                        System.out.println("암호: " + members[i].memPW);
-                        memCheck = false;
+                    for (int i = 0; i < memberCount; i++) {
+                        if (temp[1].equals(members[i].memID)) {
+                            System.out.println("아이디: " + members[i].memID);
+                            System.out.println("이메일: " + members[i].memEM);
+                            System.out.println("암호: " + members[i].memPW);
+                            memCheck = false;
+                        }
                     }
-                }
-                if (memCheck) {
-                    System.out.println("해당 아이디의 회원이 없습니다.");
-                }
+                    if (memCheck) {
+                        System.out.println("해당 아이디의 회원이 없습니다.");
+                    }
                 }
                 System.out.println();
             } else {
