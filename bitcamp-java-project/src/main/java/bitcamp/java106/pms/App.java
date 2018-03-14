@@ -137,6 +137,8 @@ public class App {
 
             if(cmd.length == 2){
                 option = cmd[1];
+            } else {
+                option = null;
             }
 
             if (menu.equals("quit")) {
