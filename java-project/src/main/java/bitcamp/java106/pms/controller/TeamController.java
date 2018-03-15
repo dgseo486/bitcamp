@@ -57,9 +57,7 @@ public class TeamController {
         
         System.out.print("종료일? ");
         team.endDate = keyScan.nextLine();
-        
-        System.out.printf("%s, %s, %s, %s, %s\n", team.name, team.description, 
-            team.maxQty, team.startDate, team.endDate);
+
         teams[teamIndex++] = team;
     }
 
@@ -125,7 +123,6 @@ public class TeamController {
         System.out.println("[팀 정보 삭제]");
         if (name == null) {
             System.out.println("팀명을 입력하시기 바랍니다.");
-            System.out.println();
             return;
         }
         

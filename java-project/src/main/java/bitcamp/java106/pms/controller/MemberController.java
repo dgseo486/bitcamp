@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class MemberController {
     
     public static Scanner keyScan;
-
+ 
     static Member[] members = new Member[1000];
     static int memberIndex = 0;
 

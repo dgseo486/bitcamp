@@ -36,26 +36,34 @@ public class App {
 
     static void onTeamAdd() {
         System.out.println("[팀 정보 입력]");
-        teams[teamIndex] = new Team();
+        Team team = new Team();
+
         System.out.print("팀명? ");
-        teams[teamIndex].name = keyScan.nextLine();
+        team.name = keyScan.nextLine();
+        
         System.out.print("설명? ");
-        teams[teamIndex].description = keyScan.nextLine();
+        team.description = keyScan.nextLine();
+        
         System.out.print("최대인원? ");
-        teams[teamIndex].maxQty = keyScan.nextLine();
+        team.maxQty = keyScan.nextLine();
+        
         System.out.print("시작일? ");
-        teams[teamIndex].startDate = keyScan.nextLine();
+        team.startDate = keyScan.nextLine();
+        
         System.out.print("종료일? ");
-        teams[teamIndex].endDate = keyScan.nextLine();
-        System.out.printf("%s, %s, %s, %s, %s\n", teams[teamIndex].name, 
-            teams[teamIndex].description, teams[teamIndex].maxQty, 
-            teams[teamIndex].startDate, teams[teamIndex].endDate);
-        teamIndex++;
+        team.endDate = keyScan.nextLine();
+        
+        System.out.printf("%s, %s, %s, %s, %s\n", team.name, 
+            team.description, team.maxQty, 
+            team.startDate, team.endDate);
+        
+        teams[teamIndex++] = team;
     }
 
     static void onTeamList() {
         System.out.println("[팀 목록]");
         for (int i = 0; i < teamIndex; i++) {
+            if(teams[i] == null) continue;
             System.out.printf("%s, %s명, %s ~ %s\n", teams[i].name,
                 teams[i].maxQty, teams[i].startDate, teams[i].endDate);
         }
@@ -150,14 +158,18 @@ public class App {
 
     static void onMemberAdd() {
         System.out.println("[회원 정보 입력]");
-        members[memberIndex] = new Member();
+        Member member = new Member();
+
         System.out.print("아이디? ");
-        members[memberIndex].id = keyScan.nextLine();
+        member.id = keyScan.nextLine();
+        
         System.out.print("이메일? ");
-        members[memberIndex].email = keyScan.nextLine();
+        member.email = keyScan.nextLine();
+        
         System.out.print("암호? ");
-        members[memberIndex].password = keyScan.nextLine();
-        memberIndex++;
+        member.password = keyScan.nextLine();
+
+        members[memberIndex++] = member;
     }
 
     static void onMemberList() {

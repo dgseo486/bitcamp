@@ -2,13 +2,13 @@ package bitcamp.java106.pms;
 
 import bitcamp.java106.pms.controller.TeamController;
 import bitcamp.java106.pms.controller.MemberController;
+import bitcamp.java106.pms.controller.BoardController;
 import bitcamp.java106.pms.util.Console;
 import java.util.Scanner;
 
 public class App {
     static Scanner keyScan = new Scanner(System.in);
-
-    public static String option = null;
+    static String option = null;
 
     static void onQuit() {
         System.out.println("안녕히 가세요!");
@@ -28,6 +28,7 @@ public class App {
     public static void main(String[] args) {
         TeamController.keyScan = keyScan;
         MemberController.keyScan = keyScan;
+        BoardController.keyScan = keyScan;
         Console.keyScan = keyScan;
 
         while (true) {
@@ -49,6 +50,8 @@ public class App {
                 TeamController.service(menu, option);
             } else if (menu.startsWith("member/")) {
                 MemberController.service(menu, option);
+            } else if (menu.startsWith("board/")) {
+                BoardController.service(menu, option);
             } else {
                 System.out.println("명령어가 올바르지 않습니다.");
             }
