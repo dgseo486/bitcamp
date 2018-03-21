@@ -1,131 +1,122 @@
 package bitcamp.java106.pms.controller;
 
+import java.sql.Date;
+import java.util.Scanner;
+
+import bitcamp.java106.pms.dao.BoardDao;
 import bitcamp.java106.pms.domain.Board;
 import bitcamp.java106.pms.util.Console;
-import java.util.Scanner;
 
 public class BoardController {
     
-    public static Scanner keyScan;
+    Scanner keyScan;
+    
+    BoardDao boardDao = new BoardDao();
+    
+    public BoardController(Scanner scanner) {
+        this.keyScan = scanner;
+    }
 
-    static Board[] boards = new Board[1000];
-    static int boardIndex = 0;
-
-    public static void service (String menu, String option) {
+    public void service (String menu, String option) {
         if (menu.equals("board/add")) {
-            onBoardAdd();
+            this.onBoardAdd();
         } else if (menu.equals("board/list")) {
-            onBoardList();
+            this.onBoardList();
         } else if (menu.equals("board/view")) {
-            onBoardView(option);
+            this.onBoardView(option);
         } else if (menu.equals("board/update")) {
-            onBoardUpdate(option);
+            this.onBoardUpdate(option);
         } else if (menu.equals("board/delete")) {
-            onBoardDelete(option);
+            this.onBoardDelete(option);
         } else {
             System.out.println("명령어가 올바르지 않습니다.");
         }
     }
 
-    static int getBoardIndex (String index) {
-        for (int i = 0; i < boardIndex; i++) {
-            if (boards[i] == null) continue;
-            if (index.equals(boards[i].index)) {
-                return i;
-            }
-        }
-        return -1;
-    }
-
-    static void onBoardAdd() {
-        System.out.println("[게시글 등록]");
+    void onBoardAdd() {
+        System.out.println("[게시글 입력]");
         Board board = new Board();
 
-        board.index = String.valueOf(boardIndex);
-
         System.out.print("제목? ");
-        board.subject = keyScan.nextLine();
+        board.title = this.keyScan.nextLine();
         
         System.out.print("내용? ");
-        board.content = keyScan.nextLine();
+        board.content = this.keyScan.nextLine();
         
         System.out.print("등록일? ");
-        board.date = keyScan.nextLine();
+        board.createdDate = Date.valueOf(this.keyScan.nextLine());
 
-        boards[boardIndex++] = board;
+        boardDao.insert(board);
     }
 
-    static void onBoardList() {
+    void onBoardList() {
         System.out.println("[게시글 목록]");
-        for (int i = 0; i < boardIndex; i++) {
-            if(boards[i] == null) continue;
-            System.out.printf("%s, %s, %s\n",
-                boards[i].index, boards[i].subject, boards[i].date);
+        Board[] list = boardDao.list();
+        for(int i = 0; i < list.length; i++) {
+            if(list[i] == null) {
+                continue;
+            }
+            System.out.printf("%d, %s, %s\n", 
+                    i, list[i].title, list[i].createdDate);
         }
     }
 
-    static void onBoardView(String index) {
+    void onBoardView(String index) {
         System.out.println("[게시글 조회]");
         if (index == null) {
-            System.out.println("게시글 번호를 입력하시기 바랍니다.");
+            System.out.println("번호를 입력하시기 바랍니다.");
             return;
         }
-
-        int i = getBoardIndex(index);
-
-        if (i == -1) {
-            System.out.println("해당 게시글이 없습니다.");
+        
+        Board board = boardDao.get(Integer.parseInt(index));
+        
+        if (board == null) {
+            System.out.println("유효하지 않는 게시물 번호입니다.");
         } else {
-            Board board = boards[i];
-            System.out.printf("제목: %s\n", board.subject);
+            System.out.printf("제목: %s\n", board.title);
             System.out.printf("내용: %s\n", board.content);
-            System.out.printf("등록일: %s\n", board.date);
+            System.out.printf("등록일: %s\n", board.createdDate);
         }
     }
 
-    static void onBoardUpdate(String index) {
+    void onBoardUpdate(String index) {
         System.out.println("[게시글 변경]");
         if (index == null) {
-            System.out.println("게시글 번호를 입력하시기 바랍니다.");
+            System.out.println("번호를 입력하시기 바랍니다.");
             return;
         }
-
-        int i = getBoardIndex(index);
         
-        if (i == -1) {
-            System.out.println("해당 게시글이 없습니다.");
+        Board board = boardDao.get(Integer.parseInt(index));
+        
+        if (board == null) {
+            System.out.println("유효하지 않는 게시물 번호입니다.");
         } else {
-            Board board = boards[i];
             Board updateBoard = new Board();
-
-            System.out.printf("제목(%s)? ", board.subject);
-            updateBoard.subject = keyScan.nextLine();
-            
+            System.out.printf("제목(%s)? ", board.title);
+            updateBoard.title = this.keyScan.nextLine();
             System.out.printf("내용(%s)? ", board.content);
-            updateBoard.content = keyScan.nextLine();
-            
-            updateBoard.index = board.index;
-            updateBoard.date = board.date;
-            
-            boards[i] = updateBoard;
+            updateBoard.content = this.keyScan.nextLine();
+            updateBoard.createdDate = board.createdDate;
+            updateBoard.no = board.no;
+            boardDao.update(updateBoard);
             System.out.println("변경하였습니다.");
         }
     }
 
-    static void onBoardDelete(String index) {
+    void onBoardDelete(String index) {
         System.out.println("[게시글 삭제]");
         if (index == null) {
-            System.out.println("게시글 번호를 입력하시기 바랍니다.");
+            System.out.println("번호를 입력하시기 바랍니다.");
             return;
         }
         
-        int i = getBoardIndex(index);
+        Board board = boardDao.get(Integer.parseInt(index));
         
-        if (i == -1) {
-            System.out.println("해당 게시글이 없습니다.");
+        if (board == null) {
+            System.out.println("유효하지 않는 게시물 번호입니다.");
         } else {
             if(Console.confirm("정말 삭제하시겠습니까?")){
-                boards[i] = null;
+                boardDao.delete(board.no);
                 System.out.println("삭제하였습니다.");
             }
         }

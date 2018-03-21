@@ -12,7 +12,7 @@ public class App {
     static String option = null;
 
     static void onQuit() {
-        System.out.println("안녕히 가세요!"); 
+        System.out.println("안녕히 가세요!");
     }
 
     static void onHelp() {
@@ -27,13 +27,14 @@ public class App {
     }
 
     public static void main(String[] args) {
-        TeamController.keyScan = keyScan;
-        MemberController.keyScan = keyScan;
-        BoardController.keyScan = keyScan;
+        TeamController teamController = new TeamController(keyScan);
+        MemberController memberController = new MemberController(keyScan);
+        BoardController boardController = new BoardController(keyScan);
         Console.keyScan = keyScan;
 
         while (true) {
             String[] input = Console.prompt();
+            
             String menu = input[0];
 
             if (input.length == 2) {
@@ -48,11 +49,11 @@ public class App {
             } else if (menu.equals("help")) {
                 onHelp();
             } else if (menu.startsWith("team/")) {
-                TeamController.service(menu, option);
+                teamController.service(menu, option);
             } else if (menu.startsWith("member/")) {
-                MemberController.service(menu, option);
+                memberController.service(menu, option);
             } else if (menu.startsWith("board/")) {
-                BoardController.service(menu, option);
+                boardController.service(menu, option);
             } else {
                 System.out.println("명령어가 올바르지 않습니다.");
             }

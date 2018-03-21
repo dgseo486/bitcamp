@@ -1,8 +1,10 @@
 package bitcamp.java106.pms.domain;
 
+import java.sql.Date;
+
 public class Board {
-    public String index;
-    public String subject;
+    public int no;
+    public String title;
     public String content;
-    public String date;
+    public Date createdDate;
 }
