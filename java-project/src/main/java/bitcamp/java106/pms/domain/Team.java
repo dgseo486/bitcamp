@@ -3,9 +3,55 @@ package bitcamp.java106.pms.domain;
 import java.sql.Date;
 
 public class Team {
-    public String name;
-    public String description;
-    public int maxQty;
-    public Date startDate;
-    public Date endDate;
+    private String name;
+    private String description;
+    private int maxQty;
+    private Date startDate;
+    private Date endDate;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getMaxQty() {
+        return maxQty;
+    }
+
+    public void setMaxQty(int maxQty) {
+        this.maxQty = maxQty;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Team [name=" + name + ", startDate=" + startDate + ", endDate=" + endDate + "]";
+    }
+    
 }

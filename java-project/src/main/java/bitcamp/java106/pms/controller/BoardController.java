@@ -38,13 +38,13 @@ public class BoardController {
         Board board = new Board();
 
         System.out.print("제목? ");
-        board.title = this.keyScan.nextLine();
+        board.setTitle(this.keyScan.nextLine());
         
         System.out.print("내용? ");
-        board.content = this.keyScan.nextLine();
+        board.setContent(this.keyScan.nextLine());
         
         System.out.print("등록일? ");
-        board.createdDate = Date.valueOf(this.keyScan.nextLine());
+        board.setCreatedDate(Date.valueOf(this.keyScan.nextLine()));
 
         boardDao.insert(board);
     }
@@ -52,12 +52,9 @@ public class BoardController {
     void onBoardList() {
         System.out.println("[게시글 목록]");
         Board[] list = boardDao.list();
-        for(int i = 0; i < list.length; i++) {
-            if(list[i] == null) {
-                continue;
-            }
+        for(Board board : list) {
             System.out.printf("%d, %s, %s\n", 
-                    i, list[i].title, list[i].createdDate);
+                    board.getNo(), board.getTitle(), board.getCreatedDate());
         }
     }
 
@@ -73,9 +70,9 @@ public class BoardController {
         if (board == null) {
             System.out.println("유효하지 않는 게시물 번호입니다.");
         } else {
-            System.out.printf("제목: %s\n", board.title);
-            System.out.printf("내용: %s\n", board.content);
-            System.out.printf("등록일: %s\n", board.createdDate);
+            System.out.printf("제목: %s\n", board.getTitle());
+            System.out.printf("내용: %s\n", board.getContent());
+            System.out.printf("등록일: %s\n", board.getCreatedDate());
         }
     }
 
@@ -92,12 +89,12 @@ public class BoardController {
             System.out.println("유효하지 않는 게시물 번호입니다.");
         } else {
             Board updateBoard = new Board();
-            System.out.printf("제목(%s)? ", board.title);
-            updateBoard.title = this.keyScan.nextLine();
-            System.out.printf("내용(%s)? ", board.content);
-            updateBoard.content = this.keyScan.nextLine();
-            updateBoard.createdDate = board.createdDate;
-            updateBoard.no = board.no;
+            updateBoard.setNo(board.getNo());
+            System.out.printf("제목(%s)? ", board.getTitle());
+            updateBoard.setTitle(this.keyScan.nextLine());
+            System.out.printf("내용(%s)? ", board.getContent());
+            updateBoard.setContent(this.keyScan.nextLine());
+            updateBoard.setCreatedDate(board.getCreatedDate());
             boardDao.update(updateBoard);
             System.out.println("변경하였습니다.");
         }
@@ -110,13 +107,14 @@ public class BoardController {
             return;
         }
         
-        Board board = boardDao.get(Integer.parseInt(index));
+        int i = Integer.parseInt(index);
+        Board board = boardDao.get(i);
         
         if (board == null) {
             System.out.println("유효하지 않는 게시물 번호입니다.");
         } else {
             if(Console.confirm("정말 삭제하시겠습니까?")){
-                boardDao.delete(board.no);
+                boardDao.delete(i);
                 System.out.println("삭제하였습니다.");
             }
         }

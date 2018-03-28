@@ -1,46 +1,56 @@
 package bitcamp.java106.pms.dao;
 
 import bitcamp.java106.pms.domain.Member;
+import bitcamp.java106.pms.util.ArrayList;
 
 public class MemberDao {
 
-    Member[] members = new Member[1000];
-    int memberIndex = 0;
-    
+    private ArrayList collection = new ArrayList();
+
     public void insert(Member member) {
-        this.members[this.memberIndex++] = member;
+        this.collection.add(member);
     }
-    
+
     public Member[] list() {
-        Member[] arr = new Member[this.memberIndex];
-        for(int i = 0; i < this.memberIndex; i++) {
-            arr[i] = this.members[i];
+        Member[] arr = new Member[this.collection.size()];
+        for (int i = 0; i < this.collection.size(); i++) {
+            arr[i] = (Member)this.collection.get(i);
         }
         return arr;
     }
-    
-    public Member get(int i) {
-        if(i < 0 || i >= this.memberIndex) {
+
+    public Member get(String id) {
+        int index = this.getMemberIndex(id);
+        if(index < 0) {
             return null;
         }
-        return this.members[i];
+        return (Member)this.collection.get(index);
+    }
+
+    public void update(Member member) {
+        int index = this.getMemberIndex(member.getId());
+        if(index < 0) {
+            return;
+        }
+        this.collection.set(index, member);
+    }
+
+    public void delete(String id) {
+        int index = this.getMemberIndex(id);
+        if(index < 0) {
+            return;
+        }
+        this.collection.remove(index);
     }
     
-    public int getMemberIndex (String id) {
-        for (int i = 0; i < this.memberIndex; i++) {
-            if (id.equals(this.members[i].id.toLowerCase())) {
+    private int getMemberIndex(String id) {
+        for (int i = 0; i < this.collection.size(); i++) {
+            Member member = (Member)collection.get(i);
+            if(member.getId().toLowerCase().equals(id)) {
                 return i;
             }
         }
         return -1;
-    }
-    
-    public void update(int i, Member member) {
-        this.members[i] = member;
-    }
-    
-    public void delete(int i) {
-        this.members[i] = null;
     }
 
 }

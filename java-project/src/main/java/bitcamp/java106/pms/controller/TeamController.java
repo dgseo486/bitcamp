@@ -10,11 +10,11 @@ import java.util.Scanner;
 public class TeamController {
     
     Scanner keyScan;
-    
-    TeamDao teamDao = new TeamDao();
+    TeamDao teamDao;
 
-    public TeamController(Scanner scanner) {
+    public TeamController(Scanner scanner, TeamDao teamDao) {
         this.keyScan = scanner;
+        this.teamDao = teamDao;
     }
     
     public void service(String menu, String option){
@@ -33,98 +33,95 @@ public class TeamController {
         }
     }
 
-    void onTeamAdd() {
+    private void onTeamAdd() {
         System.out.println("[팀 정보 입력]");
         Team team = new Team();
         System.out.print("팀명? ");
-        team.name = this.keyScan.nextLine();
+        team.setName(this.keyScan.nextLine());
         System.out.print("설명? ");
-        team.description = this.keyScan.nextLine();
+        team.setDescription(this.keyScan.nextLine());
         System.out.print("최대인원? ");
-        team.maxQty = this.keyScan.nextInt();
+        team.setMaxQty(this.keyScan.nextInt());
         this.keyScan.nextLine();
         System.out.print("시작일? ");
-        team.startDate = Date.valueOf(this.keyScan.nextLine());
+        team.setStartDate(Date.valueOf(this.keyScan.nextLine()));
         System.out.print("종료일? ");
-        team.endDate = Date.valueOf(this.keyScan.nextLine());
+        team.setEndDate(Date.valueOf(this.keyScan.nextLine()));
         teamDao.insert(team);
     }
 
-    void onTeamList() {
+    private void onTeamList() {
         System.out.println("[팀 목록]");
         Team[] list = teamDao.list();
         for (int i = 0; i < list.length; i++) {
-            if(list[i] == null) continue;
             System.out.printf("%s, %d명, %s ~ %s\n",
-                    list[i].name, list[i].maxQty, 
-                    list[i].startDate, list[i].endDate);
+                    list[i].getName(), list[i].getMaxQty(), 
+                    list[i].getStartDate(), list[i].getEndDate());
         }
     }
 
-    void onTeamView(String name) {
+    private void onTeamView(String name) {
         System.out.println("[팀 정보 조회]");
         if (name == null) {
             System.out.println("팀명을 입력하시기 바랍니다.");
             return;
         }
 
-        int i = teamDao.getTeamIndex(name);
+        Team team = teamDao.get(name);
 
-        if (i == -1) {
+        if (team == null) {
             System.out.println("해당 이름의 팀이 없습니다.");
         } else {
-            Team team = teamDao.get(i);
-            System.out.printf("팀명: %s\n", team.name);
-            System.out.printf("설명: %s\n", team.description);
-            System.out.printf("인원: %d\n", team.maxQty);
-            System.out.printf("기간: %s ~ %s\n", team.startDate, team.endDate);
+            System.out.printf("팀명: %s\n", team.getName());
+            System.out.printf("설명: %s\n", team.getDescription());
+            System.out.printf("인원: %d\n", team.getMaxQty());
+            System.out.printf("기간: %s ~ %s\n", team.getStartDate(), team.getEndDate());
         }
     }
 
-    void onTeamUpdate(String name) {
+    private void onTeamUpdate(String name) {
         System.out.println("[팀 정보 변경]");
         if (name == null) {
             System.out.println("팀명을 입력하시기 바랍니다.");
             return;
         }
 
-        int i = teamDao.getTeamIndex(name);
+        Team team = teamDao.get(name);
         
-        if (i == -1) {
+        if (team == null) {
             System.out.println("해당 이름의 팀이 없습니다.");
         } else {
-            Team team = teamDao.get(i);
             Team updateTeam = new Team();
-            System.out.printf("팀명(%s)? ", team.name);
-            updateTeam.name = this.keyScan.nextLine();
-            System.out.printf("설명(%s)? ", team.description);
-            updateTeam.description = this.keyScan.nextLine();
-            System.out.printf("최대인원(%d)? ", team.maxQty);
-            updateTeam.maxQty = this.keyScan.nextInt();
+            System.out.printf("팀명: \n", team.getName());
+            updateTeam.setName(team.getName());
+            System.out.printf("설명(%s)? ", team.getDescription());
+            updateTeam.setDescription(this.keyScan.nextLine());
+            System.out.printf("최대인원(%d)? ", team.getMaxQty());
+            updateTeam.setMaxQty(this.keyScan.nextInt());
             this.keyScan.nextLine();
-            System.out.printf("시작일(%s)? ", team.startDate);
-            updateTeam.startDate = Date.valueOf(this.keyScan.nextLine());
-            System.out.printf("종료일(%s)? ", team.endDate);
-            updateTeam.endDate = Date.valueOf(this.keyScan.nextLine());
-            teamDao.update(i, updateTeam);
+            System.out.printf("시작일(%s)? ", team.getStartDate());
+            updateTeam.setStartDate(Date.valueOf(this.keyScan.nextLine()));
+            System.out.printf("종료일(%s)? ", team.getEndDate());
+            updateTeam.setEndDate(Date.valueOf(this.keyScan.nextLine()));
+            teamDao.update(updateTeam);
             System.out.println("변경하였습니다.");
         }
     }
 
-    void onTeamDelete(String name) {
+    private void onTeamDelete(String name) {
         System.out.println("[팀 정보 삭제]");
         if (name == null) {
             System.out.println("팀명을 입력하시기 바랍니다.");
             return;
         }
         
-        int i = teamDao.getTeamIndex(name);
+        Team team = teamDao.get(name);
         
-        if (i == -1) {
+        if (team == null) {
             System.out.println("해당 이름의 팀이 없습니다.");
         } else {
             if(Console.confirm("정말 삭제하시겠습니까?")){
-                teamDao.delete(i);
+                teamDao.delete(team.getName());
                 System.out.println("삭제하였습니다.");
             }
         }
