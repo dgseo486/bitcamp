@@ -1,3 +1,5 @@
+20180330
+========
 # Ex3
 Stack  
 LIFO(Last In First Out) 구조  
@@ -37,11 +39,6 @@ HashMap의 단점
 Hashtable  
 1. null을 key로 사용할 수 없다.  
 2. value가 null이 될 수 없다.
-
-제네릭(Generic)  
-파라미터로 타입을 지정하기  
-
-
 
 
 # iterator pattern
