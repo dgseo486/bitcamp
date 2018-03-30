@@ -1,8 +1,9 @@
-// 객체(의 주소) 목록을 다루는 클래스 - 컬렉션 클래스 정의
+// java.utill.ArrayList와 비교
 package step12.ex1;
 
-// 배열을 이용하여 컬렉션 클래스 만들기 : ArrayList
-public class Exam01 {
+import java.util.ArrayList;
+
+public class Exam01_2 {
     public static void main(String[] args) {
         ArrayList list = new ArrayList();
         list.add("aaa");
