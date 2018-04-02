@@ -12,6 +12,7 @@ public class Exam02_1 {
         Member v4 = new Member("안중근", 20);
         Member v5 = new Member("윤봉길", 25);
         
+        HashMap map = new HashMap();
         map.put("s01", v1);
         map.put("s02", v2);
         map.put("s03", v3);

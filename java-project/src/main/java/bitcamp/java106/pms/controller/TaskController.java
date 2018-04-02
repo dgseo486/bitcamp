@@ -12,7 +12,7 @@ import bitcamp.java106.pms.domain.Task;
 import bitcamp.java106.pms.domain.Team;
 import bitcamp.java106.pms.util.Console;
 
-public class TaskController {
+public class TaskController implements Controller {
     
     Scanner keyScan;
     TeamDao teamDao;
@@ -58,7 +58,7 @@ public class TaskController {
         }
     }
     
-    private void onTaskAdd(Team team) {
+    private void onTaskAdd(final Team team) {
         Task task = new Task(team);
         
         System.out.println("[팀 작업 추가]");
@@ -105,7 +105,7 @@ public class TaskController {
         
     }
     
-    private void onTaskList(Team team) {
+    private void onTaskList(final Team team) {
         System.out.println("[팀 작업 목록]");
         
         Task[] list = taskDao.list(team.getName());
@@ -119,7 +119,7 @@ public class TaskController {
         System.out.println();
     }
     
-    private void onTaskView(Team team) {
+    private void onTaskView(final Team team) {
         System.out.println("[작업 정보]");
         System.out.print("작업번호? ");
         int taskNo = Integer.parseInt(keyScan.nextLine());
@@ -207,7 +207,7 @@ public class TaskController {
         
     }
     
-    private void onTaskDelete(Team team) {
+    private void onTaskDelete(final Team team) {
         System.out.println("[팀 작업 삭제]");
         System.out.print("삭제할 작업의 번호? ");
         int taskNo = Integer.parseInt(keyScan.nextLine());
@@ -227,7 +227,7 @@ public class TaskController {
         
     }
     
-    private void onTaskState(Team team) {
+    private void onTaskState(final Team team) {
         System.out.println("[작업 진행 상태]");
         System.out.print("상태를 변경할 작업의 번호? ");
         int taskNo = Integer.parseInt(keyScan.nextLine());

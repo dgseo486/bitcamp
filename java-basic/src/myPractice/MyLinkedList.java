@@ -39,6 +39,66 @@ public class MyLinkedList {
     }
     
     int size() {
-        return;
+        Bucket cursor = head;
+        int count = 0;
+        while(cursor != tail) {
+            count++;
+            cursor = cursor.next;
+        }
+        return count;
     }
+    
+    Object remove(int i) {
+        Bucket cursor = head;
+        
+        if(i == 0) {
+            if(head == tail) {
+                return null;
+            } else {
+                head = head.next;
+                return head.value;
+            }
+        }
+        
+        int count = 0;
+        while(cursor != tail) {
+            if(count == i) {
+                cursor.prev.next = cursor.next;
+                cursor.next.prev = cursor.prev;
+                return cursor.value;
+            }
+            count++;
+            cursor = cursor.next;
+        }
+        
+        return null;
+    }
+    
+    void add(int i, Object value) {
+        Bucket cursor = head;
+        int count = 0;
+        
+        while(cursor != tail) {
+            if(count == i) {
+                Bucket bucket = new Bucket();
+                bucket.value = value;
+                bucket.prev = cursor.prev;
+                cursor.prev = bucket;
+                bucket.next = cursor;
+                if(bucket.prev != null) {
+                    bucket.prev.next = bucket;
+                } else {
+                    head = bucket;
+                }
+                return;
+            }
+            count++;
+            cursor = cursor.next;
+        }
+        
+        if(count == i) {
+            add(value);
+        }
+    }
+    
 }

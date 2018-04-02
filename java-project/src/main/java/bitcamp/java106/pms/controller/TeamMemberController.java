@@ -1,5 +1,6 @@
 package bitcamp.java106.pms.controller;
 
+import java.util.Iterator;
 import java.util.Scanner;
 
 import bitcamp.java106.pms.dao.MemberDao;
@@ -8,7 +9,7 @@ import bitcamp.java106.pms.dao.TeamMemberDao;
 import bitcamp.java106.pms.domain.Member;
 import bitcamp.java106.pms.domain.Team;
 
-public class TeamMemberController {
+public class TeamMemberController implements Controller {
     
     Scanner keyScan;
     TeamDao teamDao;
@@ -81,12 +82,13 @@ public class TeamMemberController {
         System.out.println("[팀 멤버 목록]");
         System.out.print("회원들: ");
         
-        String[] members = teamMemberDao.getMembers(teamName);
-        
-        for (int i = 0; i < members.length; i++) {
-            if(members[i] == null) continue;
-            System.out.printf("%s ,", members[i]);
+        Iterator<String> iterator = teamMemberDao.getMembers(teamName);
+        if(iterator != null) {
+            while(iterator.hasNext()) {
+                System.out.printf("%s, ", iterator.next());
+            }
         }
+        
         System.out.println();
     }
 
@@ -102,7 +104,6 @@ public class TeamMemberController {
             return;
         }
         
-        System.out.println("[팀 멤버 삭제]");
         System.out.print("삭제할 팀원은? ");
         String memberId = keyScan.nextLine();
         
@@ -113,6 +114,7 @@ public class TeamMemberController {
         
         teamMemberDao.deleteMember(teamName, memberId);
         
+        System.out.println("[팀 멤버 삭제]");
         System.out.println("삭제하였습니다.");
     }
 }

@@ -12,6 +12,11 @@ public class Exam01_3 {
             this.major = major;
             this.no = no;
         }
+        
+        @Override
+        public String toString() {
+            return "MyKey [major=" + major + ", no=" + no + "]";
+        }
 
         @Override
         public int hashCode() {

@@ -7,7 +7,7 @@ import bitcamp.java106.pms.util.Console;
 import java.sql.Date;
 import java.util.Scanner;
 
-public class TeamController {
+public class TeamController implements Controller {
     
     Scanner keyScan;
     TeamDao teamDao;

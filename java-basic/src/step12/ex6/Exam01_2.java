@@ -14,31 +14,8 @@ public class Exam01_2 {
         }
 
         @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((major == null) ? 0 : major.hashCode());
-            result = prime * result + no;
-            return result;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj)
-                return true;
-            if (obj == null)
-                return false;
-            if (getClass() != obj.getClass())
-                return false;
-            MyKey other = (MyKey) obj;
-            if (major == null) {
-                if (other.major != null)
-                    return false;
-            } else if (!major.equals(other.major))
-                return false;
-            if (no != other.no)
-                return false;
-            return true;
+        public String toString() {
+            return "MyKey [major=" + major + ", no=" + no + "]";
         }
         
     }

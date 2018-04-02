@@ -1,6 +1,8 @@
 // 캡슐화(encapsulation) - 응용
 package step11.ex13;
 
+import step11.ex13.sub.C;
+
 public class Exam02_2 extends C {
     
     public static void main(String[] args) {

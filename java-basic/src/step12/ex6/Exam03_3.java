@@ -1,11 +1,9 @@
 package step12.ex6;
 
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Set;
 
 public class Exam03_3 {
-    
     public static void main(String[] args) {
         Member v1 = new Member("홍길동", 20);
         Member v2 = new Member("임꺽정", 30);
@@ -14,7 +12,6 @@ public class Exam03_3 {
         Member v5 = new Member("윤봉길", 25);
         
         Hashtable table = new Hashtable();
-        
         table.put("s01", v1);
         table.put("s02", v2);
         table.put("s03", v3);

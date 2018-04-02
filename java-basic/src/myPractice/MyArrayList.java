@@ -1,4 +1,4 @@
-package step12.ex1;
+package myPractice;
 
 public class MyArrayList {
     final static int DEFAULT_CAPACITY = 5;
