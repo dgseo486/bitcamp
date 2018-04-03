@@ -65,7 +65,7 @@ public class App {
         MemberController memberController = new MemberController(keyScan, memberDao);
         BoardController boardController = new BoardController(keyScan);
         TaskController taskController = 
-                new TaskController(keyScan, teamDao, taskDao, memberDao, teamMemberDao);
+                new TaskController(keyScan, teamDao, taskDao, teamMemberDao, memberDao);
         ClassroomController classroomController = new ClassroomController(keyScan);
         
         HashMap<String, Controller> controllerMap = new HashMap<>();

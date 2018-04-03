@@ -1,57 +1,17 @@
 package bitcamp.java106.pms.dao;
 
-import java.util.LinkedList;
-
 import bitcamp.java106.pms.domain.Board;
 
-public class BoardDao {
-
-    private LinkedList<Board> collection = new LinkedList<>();
+public class BoardDao extends AbstractDao<Board> {
     
-    public void insert(Board board) {
-        this.collection.add(board);
-    }
-    
-    public Board[] list() {
-        Board[] arr = new Board[this.collection.size()];
-        for(int i = 0; i < this.collection.size(); i++) {
-            arr[i] = this.collection.get(i);
-        }
-        return arr;
-    }
-    
-    public Board get(int no) {
-        int index = this.getBoardIndex(no);
-        if(index < 0) {
-            return null;
-        }
-        return this.collection.get(index);
-    }
-    
-    public void update(Board board) {
-        int index = this.getBoardIndex(board.getNo());
-        if(index < 0) {
-            return;
-        }
-        this.collection.set(index, board);
-    }
-    
-    public void delete(int no) {
-        int index = this.getBoardIndex(no);
-        if(index < 0) {
-            return;
-        }
-        this.collection.remove(index);
-    }
-    
-    private int getBoardIndex(int no) {
-        for(int i = 0; i < collection.size(); i++) {
-            Board originBoard = collection.get(i);
-            if(originBoard.getNo() == no) {
+    public int indexOf(Object key) {
+        int index = (Integer) key;
+        for (int i = 0; i < collection.size(); i++) {
+            Board board = collection.get(i);
+            if (board.getNo() == index) {
                 return i;
             }
         }
         return -1;
     }
-
 }
