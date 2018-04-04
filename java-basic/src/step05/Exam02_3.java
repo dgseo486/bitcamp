@@ -1,8 +1,6 @@
 // 흐름 제어문 - switch 문법
 package step05;
 
-import java.util.Scanner;
-
 public class Exam02_3 {
     public static void main(String[] args) {
         // switch (값) {}

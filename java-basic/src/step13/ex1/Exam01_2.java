@@ -3,7 +3,6 @@
 package step13.ex1;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 import step11.ex12.Member;
 

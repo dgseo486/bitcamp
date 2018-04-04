@@ -1,8 +1,6 @@
 // 메서드 : 개념 및 기본 문법4
 package step06;
 
-import java.util.Scanner;
-
 class Exam02_4 {
 
     static String hello(String name, int age) {

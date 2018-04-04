@@ -2,8 +2,6 @@ package step12.ex6;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Map.Entry;
-import java.util.Set;
 
 public class Exam02_3 {
     

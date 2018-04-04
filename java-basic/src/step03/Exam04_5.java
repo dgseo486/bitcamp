@@ -1,9 +1,11 @@
 // 클래스 사용 - import 2
 package step03;
 
-import step03.test.*; // 와일드카드
-import java.util.*;
-import java.lang.reflect.*;
+import java.lang.reflect.Method;
+import java.util.Calendar;
+
+// 와일드카드
+import step03.test.B;
 
 public class Exam04_4 {
     public static void main(String[] args) {   

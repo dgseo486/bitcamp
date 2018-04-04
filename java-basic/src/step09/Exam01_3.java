@@ -1,8 +1,6 @@
 // 생성자 활용 예 - java.util.Date의 생성자
 package step09;
 
-import java.util.Calendar;
-
 public class Exam01_3 {
 
     public static void main(String[] args) throws Exception {

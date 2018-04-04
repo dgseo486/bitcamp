@@ -1,6 +1,8 @@
 // 클래스 사용 - import 3
 package step03;
 
+import java.io.File;
+
 public class Exam04_6 {
     public static void main(String[] args) {   
         // 자바 기본 제공 클래스는 패키지 명을 명시하지 
