@@ -1,20 +1,8 @@
 package step15.ex2;
 
-public class Exam02 implements Servlet {
-
-    @Override
+public abstract class Exam02 implements Servlet {
     public void init() {}
-
-    @Override
-    public void service() {}
-
-    @Override
     public void destroy() {}
-
-    @Override
     public String getServletInfo() {return null;}
-
-    @Override
     public String getServletConfig() {return null;}
-    
 }

@@ -18,9 +18,10 @@ public class Exam06_1 {
         File dir = new File(".");
         
         JavaFilter javaFilter = new JavaFilter();
-        String[] names = dir.list(javaFilter); // list에서 accept를 실행
         
-        for(String name : names) {
+        String[] names = dir.list(javaFilter);
+        
+        for (String name : names) {
             System.out.println(name);
         }
     }
