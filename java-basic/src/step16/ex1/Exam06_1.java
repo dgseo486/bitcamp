@@ -1,4 +1,4 @@
-package step16;
+package step16.ex1;
 
 import java.io.File;
 import java.io.FilenameFilter;
