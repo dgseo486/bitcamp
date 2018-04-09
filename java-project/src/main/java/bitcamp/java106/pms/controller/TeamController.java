@@ -4,10 +4,12 @@ import java.sql.Date;
 import java.util.Iterator;
 import java.util.Scanner;
 
+import bitcamp.java106.pms.Annotation.Component;
 import bitcamp.java106.pms.dao.TeamDao;
 import bitcamp.java106.pms.domain.Team;
 import bitcamp.java106.pms.util.Console;
 
+@Component("team/member")
 public class TeamController implements Controller {
 
     Scanner keyScan;
