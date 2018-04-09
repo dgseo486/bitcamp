@@ -9,7 +9,7 @@ import bitcamp.java106.pms.dao.TeamDao;
 import bitcamp.java106.pms.domain.Team;
 import bitcamp.java106.pms.util.Console;
 
-@Component("team/member")
+@Component("team")
 public class TeamController implements Controller {
 
     Scanner keyScan;

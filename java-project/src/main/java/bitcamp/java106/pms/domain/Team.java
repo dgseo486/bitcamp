@@ -8,6 +8,14 @@ public class Team {
     private int maxQty;
     private Date startDate;
     private Date endDate;
+    
+    public Team() {
+        
+    }
+    
+    public Team(String name) {
+        this.name = name;
+    }
 
     public String getName() {
         return name;

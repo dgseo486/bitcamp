@@ -1,15 +1,57 @@
 package bitcamp.java106.pms.dao;
 
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
+import java.util.Set;
 
 import bitcamp.java106.pms.Annotation.Component;
 
 @Component
 public class TeamMemberDao {
     
-    private HashMap<String, ArrayList<String>> collection = new HashMap<>(); 
+    private HashMap<String, ArrayList<String>> collection = new HashMap<>();
+    
+    public TeamMemberDao() throws Exception {
+        this.load();
+    }
+    
+    public void load() throws Exception {
+        Scanner in = new Scanner(new FileReader("data/teammember.csv"));
+        while(true) {
+            try {
+                String[] arr = in.nextLine().split(":");
+                String[] idList = arr[1].split(",");
+                ArrayList<String> list = new ArrayList<>();
+                for(String id : idList){
+                    list.add(id);
+                }
+                collection.put(arr[0], list);
+            } catch(Exception e) {
+                break;
+            }
+        }
+        in.close();
+    }
+    
+    public void save() throws Exception {
+        PrintWriter out = new PrintWriter(new FileWriter("data/teammember.csv"));
+        Set<String> keyList = collection.keySet();
+        for(String key : keyList) {
+            out.printf("%s:", key);
+            List<String> idList = collection.get(key);
+            for(String id : idList) {
+                out.printf("%s,", id);
+            }
+            System.out.println();
+        }
+        out.close();
+    }
     
     public int addMember(String teamName, String memberId) {
         String teamNameLC = teamName.toLowerCase();
