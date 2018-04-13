@@ -12,7 +12,7 @@ public abstract class AbstractDao<E> {
     }
     
     public Iterator<E> list(){
-        return this.collection.iterator();
+        return collection.iterator();
     }
     
     public E get(Object key) {

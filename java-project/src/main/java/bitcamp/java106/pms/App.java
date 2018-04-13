@@ -25,7 +25,7 @@ public class App {
         System.out.println("안녕히 가세요!");
         
         BoardDao boardDao = (BoardDao)iocContainer.getBean(BoardDao.class);
-        ClassroomDao classroomDao = (ClassroomDao)iocContainer.getBean(Classroom.class);
+        ClassroomDao classroomDao = (ClassroomDao)iocContainer.getBean(ClassroomDao.class);
         MemberDao memberDao = (MemberDao)iocContainer.getBean(MemberDao.class);
         TaskDao taskDao = (TaskDao)iocContainer.getBean(TaskDao.class);
         TeamDao teamDao = (TeamDao)iocContainer.getBean(TeamDao.class);
