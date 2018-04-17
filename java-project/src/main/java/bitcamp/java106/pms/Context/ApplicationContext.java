@@ -14,6 +14,10 @@ public class ApplicationContext {
     
     private HashMap<String, Object> objPool = new HashMap<>();
     
+    public ApplicationContext(String packageName) throws Exception {
+        this(packageName, null);
+    }
+    
     public ApplicationContext(String packageName, Map<String, Object> beans) throws Exception {
         if(beans != null) {
             objPool.putAll(beans);

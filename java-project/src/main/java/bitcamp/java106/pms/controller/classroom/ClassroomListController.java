@@ -1,6 +1,7 @@
 package bitcamp.java106.pms.controller.classroom;
 
 import java.io.PrintWriter;
+import java.util.Iterator;
 
 import bitcamp.java106.pms.Annotation.Component;
 import bitcamp.java106.pms.controller.Controller;
@@ -9,25 +10,22 @@ import bitcamp.java106.pms.domain.Classroom;
 import bitcamp.java106.pms.server.ServerRequest;
 import bitcamp.java106.pms.server.ServerResponse;
 
-@Component("/classroom/delete")
-public class ClassroomDeleteController implements Controller {
+@Component("/classroom/list")
+public class ClassroomListController implements Controller {
     ClassroomDao classroomDao;
     
-    public ClassroomDeleteController(ClassroomDao classroomDao) {
+    public ClassroomListController(ClassroomDao classroomDao) {
         this.classroomDao = classroomDao;
     }
     
     public void service(ServerRequest request, ServerResponse response) {
         PrintWriter out = response.getWriter();
-        int no = Integer.parseInt(request.getParameter("no"));
         
-        Classroom classroom = classroomDao.get(no);
-        
-        if (classroom == null) {
-            System.out.println("유효하지 않은 게시물 번호입니다.");
-        } else {
-            classroomDao.delete(no);
-            System.out.println("삭제하였습니다.");
+        Iterator<Classroom> iterator = classroomDao.list();
+        while (iterator.hasNext()) {
+            Classroom classroom = iterator.next();
+            out.printf("%d, %s, %s ~ %s, %s\n", classroom.getNo(), classroom.getTitle(), 
+                    classroom.getStartDate(), classroom.getEndDate(), classroom.getRoom());
         }
     }
 
