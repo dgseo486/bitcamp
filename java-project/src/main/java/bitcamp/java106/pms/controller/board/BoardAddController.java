@@ -17,7 +17,7 @@ public class BoardAddController implements Controller {
     public BoardAddController(BoardDao boardDao) {
         this.boardDao = boardDao;
     }
-    
+     
     public void service(ServerRequest request, ServerResponse response) {
         Board board = new Board();
         board.setTitle(request.getParameter("title"));

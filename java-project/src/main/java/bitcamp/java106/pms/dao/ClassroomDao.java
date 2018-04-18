@@ -30,7 +30,11 @@ public class ClassroomDao extends AbstractDao<Classroom> {
                 new ObjectInputStream(new BufferedInputStream(new FileInputStream("data/classroom.data")));) {
             while(true) {
                 try {
-                    this.insert((Classroom) in.readObject());
+                    Classroom classroom = (Classroom) in.readObject();
+                    if (classroom.getNo() >= Classroom.count) {
+                        Classroom.count = classroom.getNo() + 1; 
+                    }
+                    this.insert(classroom);
                 } catch(Exception e) {
                     break;
                 }

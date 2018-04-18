@@ -23,7 +23,11 @@ public class BoardDao extends AbstractDao<Board> {
                 new ObjectInputStream(new BufferedInputStream(new FileInputStream("data/board.data")));) {
             while(true) {
                 try {
-                    this.insert((Board) in.readObject());
+                    Board board = (Board) in.readObject();
+                    if (board.getNo() >= Board.count) {
+                        Board.count = board.getNo() + 1; 
+                    }
+                    this.insert(board);
                 } catch(Exception e) {
                     break;
                 }

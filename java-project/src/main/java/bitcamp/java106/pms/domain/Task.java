@@ -6,7 +6,7 @@ import java.sql.Date;
 public class Task implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private static int count = 1;
+    public static int count = 1;
     
     public static final int READY = 0;
     public static final int WORKING = 1;

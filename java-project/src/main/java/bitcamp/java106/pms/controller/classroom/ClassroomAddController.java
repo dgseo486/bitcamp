@@ -22,9 +22,10 @@ public class ClassroomAddController implements Controller {
     public void service(ServerRequest request, ServerResponse response) {
         Classroom classroom = new Classroom();
         classroom.setTitle(request.getParameter("title"));
-        classroom.setStartDate(Date.valueOf(request.getParameter("startdate")));
-        classroom.setEndDate(Date.valueOf(request.getParameter("enddate")));
+        classroom.setStartDate(Date.valueOf(request.getParameter("startDate")));
+        classroom.setEndDate(Date.valueOf(request.getParameter("endDate")));
         classroom.setRoom(request.getParameter("room"));
+        classroomDao.insert(classroom);
         
         PrintWriter out = response.getWriter();
         out.println("등록 성공!");

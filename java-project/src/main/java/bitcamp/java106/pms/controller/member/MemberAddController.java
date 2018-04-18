@@ -1,36 +1,33 @@
 package bitcamp.java106.pms.controller.member;
 
-import java.util.Scanner;
+import java.io.PrintWriter;
 
 import bitcamp.java106.pms.Annotation.Component;
 import bitcamp.java106.pms.controller.Controller;
 import bitcamp.java106.pms.dao.MemberDao;
 import bitcamp.java106.pms.domain.Member;
+import bitcamp.java106.pms.server.ServerRequest;
+import bitcamp.java106.pms.server.ServerResponse;
 
-@Component("member/add")
+@Component("/member/add")
 public class MemberAddController implements Controller {
-    Scanner keyScan;
     MemberDao memberDao;
     
-    public MemberAddController(Scanner scanner, MemberDao memberDao) {
-        this.keyScan = scanner;
+    public MemberAddController(MemberDao memberDao) {
         this.memberDao = memberDao;
     }
 
-    public void service(String menu, String option) {
-        System.out.println("[회원 정보 입력]");
+    @Override
+    public void service(ServerRequest request, ServerResponse response) {
         Member member = new Member();
+        member.setId(request.getParameter("id"));
+        member.setEmail(request.getParameter("email"));
+        member.setPassword(request.getParameter("password"));
         
-        System.out.print("아이디? ");
-        member.setId(this.keyScan.nextLine());
-
-        System.out.print("이메일? ");
-        member.setEmail(this.keyScan.nextLine());
-
-        System.out.print("암호? ");
-        member.setPassword(this.keyScan.nextLine());
-
         memberDao.insert(member);
+        
+        PrintWriter out = response.getWriter();
+        out.println("등록 성공!");
     }
     
 }

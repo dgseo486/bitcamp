@@ -32,7 +32,11 @@ public class TaskDao extends AbstractDao<Task> {
                 new ObjectInputStream(new BufferedInputStream(new FileInputStream("data/task.data")));) {
             while(true) {
                 try {
-                    this.insert((Task) in.readObject());
+                    Task task = (Task) in.readObject();
+                    if (task.getNo() >= Task.count) {
+                        Task.count = task.getNo() + 1; 
+                    }
+                    this.insert(task);
                 } catch(Exception e) {
                     break;
                 }

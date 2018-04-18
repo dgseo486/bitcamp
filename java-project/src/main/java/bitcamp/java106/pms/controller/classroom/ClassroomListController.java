@@ -20,7 +20,6 @@ public class ClassroomListController implements Controller {
     
     public void service(ServerRequest request, ServerResponse response) {
         PrintWriter out = response.getWriter();
-        
         Iterator<Classroom> iterator = classroomDao.list();
         while (iterator.hasNext()) {
             Classroom classroom = iterator.next();

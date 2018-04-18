@@ -17,6 +17,7 @@ public class ClassroomDeleteController implements Controller {
         this.classroomDao = classroomDao;
     }
     
+    @Override
     public void service(ServerRequest request, ServerResponse response) {
         PrintWriter out = response.getWriter();
         int no = Integer.parseInt(request.getParameter("no"));
@@ -24,10 +25,10 @@ public class ClassroomDeleteController implements Controller {
         Classroom classroom = classroomDao.get(no);
         
         if (classroom == null) {
-            System.out.println("유효하지 않은 게시물 번호입니다.");
+            out.println("유효하지 않은 게시물 번호입니다.");
         } else {
             classroomDao.delete(no);
-            System.out.println("삭제하였습니다.");
+            out.println("삭제하였습니다.");
         }
     }
 

@@ -1,56 +1,46 @@
 package bitcamp.java106.pms.controller.teammember;
 
+import java.io.PrintWriter;
 import java.util.Iterator;
-import java.util.Scanner;
 
 import bitcamp.java106.pms.Annotation.Component;
 import bitcamp.java106.pms.controller.Controller;
-import bitcamp.java106.pms.dao.MemberDao;
 import bitcamp.java106.pms.dao.TeamDao;
 import bitcamp.java106.pms.dao.TeamMemberDao;
-import bitcamp.java106.pms.domain.Member;
 import bitcamp.java106.pms.domain.Team;
+import bitcamp.java106.pms.server.ServerRequest;
+import bitcamp.java106.pms.server.ServerResponse;
 
-@Component("team/member/list")
+@Component("/team/member/list")
 public class TeamMemberListController implements Controller {
-    
-    Scanner keyScan;
     TeamDao teamDao;
-    MemberDao memberDao;
     TeamMemberDao teamMemberDao;
     
-    public TeamMemberListController(Scanner scanner, TeamDao teamDao, 
-            MemberDao memberDao, TeamMemberDao teamMemberDao) {
-        this.keyScan = scanner;
+    public TeamMemberListController(
+            TeamDao teamDao, 
+            TeamMemberDao teamMemberDao) {
         this.teamDao = teamDao;
-        this.memberDao = memberDao;
         this.teamMemberDao = teamMemberDao;
     }
     
-    public void service(String menu, String option){
-        if (option == null) {
-            System.out.println("팀명을 입력하시기 바랍니다.");
+    @Override
+    public void service(ServerRequest request, ServerResponse response) {
+        PrintWriter out = response.getWriter();
+        String teamName = request.getParameter("teamName");
+        Team team = teamDao.get(teamName);
+        if (team == null) {
+            out.printf("%s 팀은 존재하지 않습니다.\n", teamName);
             return;
         }
-        
-        Team team = teamDao.get(option);
-        if(team == null) {
-            System.out.printf("%s 팀은 존재하지 않습니다.", option);
-            return;
-        }
-        
-        System.out.print("삭제할 팀원은? ");
-        String memberId = keyScan.nextLine();
-        
-        if(!teamMemberDao.isExist(option, memberId)) {
-            System.out.println("이 팀의 회원이 아닙니다.");
-            return;
-        }
-        
-        teamMemberDao.deleteMember(option, memberId);
-        
-        System.out.println("[팀 멤버 삭제]");
-        System.out.println("삭제하였습니다.");
-    }
 
+        out.print("회원들: ");
+        
+        Iterator<String> iterator = teamMemberDao.getMembers(teamName);
+        if (iterator != null) {
+            while (iterator.hasNext()) {
+                out.printf("%s, ", iterator.next());
+            }
+        }
+        out.println();
+    }
 }
