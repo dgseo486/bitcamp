@@ -21,6 +21,7 @@ public class BoardDao extends AbstractDao<Board> {
     public void load() throws Exception {
         try (ObjectInputStream in = 
                 new ObjectInputStream(new BufferedInputStream(new FileInputStream("data/board.data")));) {
+            
             while(true) {
                 try {
                     Board board = (Board) in.readObject();
@@ -38,6 +39,7 @@ public class BoardDao extends AbstractDao<Board> {
     public void save() throws Exception {
         try (ObjectOutputStream out = 
                 new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("data/board.data")));) {
+            
             Iterator<Board> boards = this.list();
             
             while(boards.hasNext()) {
