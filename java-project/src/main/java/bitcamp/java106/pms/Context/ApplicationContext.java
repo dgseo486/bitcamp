@@ -12,7 +12,7 @@ import bitcamp.java106.pms.Annotation.Component;
 
 public class ApplicationContext {
     
-private HashMap<String,Object> objPool = new HashMap<>();
+    private HashMap<String, Object> objPool = new HashMap<>();
     
     public ApplicationContext(String packageName) throws Exception {
         this(packageName, null);
@@ -43,6 +43,7 @@ private HashMap<String,Object> objPool = new HashMap<>();
                 return false;
             }
         });
+        
         for (File f : files) {
             if (f.isDirectory()) {
                 findAndInstantiateClasses(f, packageName + "." + f.getName());
@@ -73,9 +74,9 @@ private HashMap<String,Object> objPool = new HashMap<>();
     }
     
     private Object createObject(Class clazz) throws Exception {
-        
-        if (!isComponent(clazz))
+        if (!isComponent(clazz)) {
             return null;
+        }
         
         try {
             clazz.getConstructor();

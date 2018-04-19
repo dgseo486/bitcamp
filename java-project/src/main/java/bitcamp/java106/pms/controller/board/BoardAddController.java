@@ -23,6 +23,7 @@ public class BoardAddController implements Controller {
         board.setTitle(request.getParameter("title"));
         board.setContent(request.getParameter("content"));
         board.setCreatedDate(new Date(System.currentTimeMillis()));
+        
         boardDao.insert(board);
         
         PrintWriter out = response.getWriter();

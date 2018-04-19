@@ -1,21 +1,5 @@
 package bitcamp.java106.pms;
 
-import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Scanner;
-
-import bitcamp.java106.pms.Context.ApplicationContext;
-import bitcamp.java106.pms.controller.Controller;
-import bitcamp.java106.pms.dao.BoardDao;
-import bitcamp.java106.pms.dao.ClassroomDao;
-import bitcamp.java106.pms.dao.MemberDao;
-import bitcamp.java106.pms.dao.TaskDao;
-import bitcamp.java106.pms.dao.TeamDao;
-import bitcamp.java106.pms.dao.TeamMemberDao;
-import bitcamp.java106.pms.server.ServerRequest;
-import bitcamp.java106.pms.server.ServerResponse;
-
 public class AppServer {
     
     HTTPServer httpServer;
@@ -30,25 +14,9 @@ public class AppServer {
         httpServer.execute();
     }
     
-    void processRequest(Socket socket) {
-        PrintWriter out = null;
-        Scanner in = null;
-        
-        try {
-            out = new PrintWriter(socket.getOutputStream());
-            in = new Scanner(socket.getInputStream());
-            
-            out.println();
-            
-        } catch (Exception e) {
-            out.println("서버 오류!");
-            e.printStackTrace(out);
-            out.println();
-        } finally {
-            out.close();
-            in.close();
-            try{socket.close();} catch (Exception e) {}
-        }
+    public static void main(String[] args) throws Exception {
+        AppServer appServer = new AppServer(8888);
+        appServer.service();
     }
     
     /*void onQuit() {
@@ -80,9 +48,4 @@ public class AppServer {
         catch (Exception e) {System.out.println("팀멤버 데이터 저장 중 오류 발생");}
         
     }*/
-    
-    public static void main(String[] args) throws Exception {
-        AppServer appServer = new AppServer(8888);
-        appServer.service();
-    }
 }
