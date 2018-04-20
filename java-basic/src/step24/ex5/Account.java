@@ -9,7 +9,7 @@ public class Account {
         this.balance = balance;
     }
     
-    public long withdraw(long money) {
+    synchronized public long withdraw(long money) {
         long b = this.balance;
         
         for(int i = 0; i < 100; i++) {Math.asin(45.765);}
