@@ -65,6 +65,10 @@ public class HTTPServer {
                 out.println(result);
 
             } catch (Exception e) {
+                out.println("HTTP/1.1 200 Internal Server Error");
+                out.println("Content-Type: text/plain;charset=UTF-8");
+                out.println();
+                
                 out.println("서버 오류!");
                 e.printStackTrace(out);
                 out.println();

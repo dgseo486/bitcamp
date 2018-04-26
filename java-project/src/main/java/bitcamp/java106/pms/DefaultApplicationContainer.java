@@ -2,9 +2,11 @@ package bitcamp.java106.pms;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.HashMap;
 
 import bitcamp.java106.pms.Context.ApplicationContext;
 import bitcamp.java106.pms.controller.Controller;
+import bitcamp.java106.pms.jdbc.DefaultDataSource;
 import bitcamp.java106.pms.server.ServerRequest;
 import bitcamp.java106.pms.server.ServerResponse;
 
@@ -13,7 +15,10 @@ public class DefaultApplicationContainer implements ApplicationContainer {
     ApplicationContext iocContainer;
     
     public DefaultApplicationContainer() throws Exception {
-        iocContainer = new ApplicationContext("bitcamp.java106.pms");
+        HashMap<String, Object> objMap = new HashMap<>();
+        objMap.put("datasource", new DefaultDataSource("jdbc.properties"));
+        
+        iocContainer = new ApplicationContext("bitcamp.java106.pms", objMap);
     }
     
     @Override

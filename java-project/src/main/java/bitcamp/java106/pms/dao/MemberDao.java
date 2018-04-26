@@ -1,63 +1,95 @@
 package bitcamp.java106.pms.dao;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
-import java.sql.Date;
-import java.util.Iterator;
-import java.util.Scanner;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import bitcamp.java106.pms.Annotation.Component;
-import bitcamp.java106.pms.domain.Board;
 import bitcamp.java106.pms.domain.Member;
+import bitcamp.java106.pms.jdbc.DataSource;
 
 @Component
-public class MemberDao extends AbstractDao<Member> {
+public class MemberDao {
     
-    public MemberDao() throws Exception {
-        this.load();
+    DataSource dataSource;
+    
+    public MemberDao(DataSource dataSource){
+        this.dataSource = dataSource;
     }
     
-    public void load() throws Exception {
-        try (ObjectInputStream in = 
-                new ObjectInputStream(new BufferedInputStream(new FileInputStream("data/member.data")));) {
-            while(true) {
-                try {
-                    this.insert((Member) in.readObject());
-                } catch(Exception e) {
-                    break;
-                }
-            }
-        }
-    }
-    
-    public void save() throws Exception {
-        try (ObjectOutputStream out = 
-                new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("data/member.data")));) {
-            Iterator<Member> members = this.list();
+    public int delete(String id) throws Exception {
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = con.prepareStatement("delete from pms_member where mid=?");){
             
-            while(members.hasNext()) {
-                out.writeObject(members.next());
-            }
+            stmt.setString(1, id);
+            return stmt.executeUpdate();
         }
     }
     
-    public int indexOf(Object key) {
-        String id = (String) key;
-        for (int i = 0; i < collection.size(); i++) {
-            Member member = collection.get(i);
-            if (member.getId().equalsIgnoreCase(id)) {
-                return i;
+    public List<Member> selectList() throws Exception {
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = con.prepareStatement("select mid, email from pms_member");
+                ResultSet rs = stmt.executeQuery();) {
+
+            ArrayList<Member> arr = new ArrayList<>();
+            while (rs.next()) {
+                Member member = new Member();
+                member.setId(rs.getString("mid"));
+                member.setEmail(rs.getString("email"));
+                arr.add(member);
             }
+            return arr;
         }
-        return -1;
     }
     
+    public int insert(Member member) throws Exception {
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = 
+                        con.prepareStatement("insert into pms_member(mid, email, pwd) values(?, ?, sha2(?, 224))");){
+            
+            stmt.setString(1, member.getId());
+            stmt.setString(2, member.getEmail());
+            stmt.setString(3, member.getPassword());
+            
+            return stmt.executeUpdate();
+        }
+    }
     
+    public int update(Member member) throws Exception {
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = 
+                        con.prepareStatement("update pms_member set mid=?, email=?, pwd=sha2(?,224) where mid=?");){
+            
+            stmt.setString(1, member.getId());
+            stmt.setString(2, member.getEmail());
+            stmt.setString(3, member.getPassword());
+            return stmt.executeUpdate();
+        }
+    }
+    
+    public Member selectOne(String id) throws Exception {
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = con.prepareStatement("select mid, email from pms_member where mid=?");) {
+
+            stmt.setString(1, id);
+
+            try (ResultSet rs = stmt.executeQuery();) {
+                if (!rs.next()) {
+                    return null;
+                }
+                Member member = new Member();
+                member.setId(id);
+                member.setEmail(rs.getString("email"));
+                return member;
+            }
+        }
+    }
 }

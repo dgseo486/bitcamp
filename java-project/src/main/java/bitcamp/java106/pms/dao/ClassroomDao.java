@@ -1,69 +1,108 @@
 package bitcamp.java106.pms.dao;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
-import java.sql.Date;
-import java.util.Iterator;
-import java.util.Scanner;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
 
 import bitcamp.java106.pms.Annotation.Component;
-import bitcamp.java106.pms.domain.Board;
 import bitcamp.java106.pms.domain.Classroom;
-import bitcamp.java106.pms.domain.Classroom;
+import bitcamp.java106.pms.jdbc.DataSource;
 
 @Component
-public class ClassroomDao extends AbstractDao<Classroom> {
+public class ClassroomDao {
     
-    public ClassroomDao() throws Exception {
-        this.load();
+    DataSource dataSource;
+    
+    public ClassroomDao(DataSource dataSource){
+        this.dataSource = dataSource;
     }
     
-    public void load() throws Exception {
-        try (ObjectInputStream in = 
-                new ObjectInputStream(new BufferedInputStream(new FileInputStream("data/classroom.data")));) {
-            while(true) {
-                try {
-                    Classroom classroom = (Classroom) in.readObject();
-                    if (classroom.getNo() >= Classroom.count) {
-                        Classroom.count = classroom.getNo() + 1; 
-                    }
-                    this.insert(classroom);
-                } catch(Exception e) {
-                    break;
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    
-    public void save() throws Exception {
-        try (ObjectOutputStream out = 
-                new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("data/classroom.data")));) {
-            Iterator<Classroom> classrooms = this.list();
+    public int delete(int no) throws Exception {
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = 
+                        con.prepareStatement("delete from pms_classroom where crno=?");){
             
-            while(classrooms.hasNext()) {
-                out.writeObject(classrooms.next());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            stmt.setInt(1, no);
+            return stmt.executeUpdate();
         }
     }
     
-    public int indexOf(Object key) {
-        int index = (Integer) key;
-        for (int i = 0; i < collection.size(); i++) {
-            if (collection.get(i).getNo() == index) {
-                return i;
+    public List<Classroom> selectList() throws Exception {
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = 
+                        con.prepareStatement("select crno, titl, sdt, edt, room from pms_classroom");
+                ResultSet rs = stmt.executeQuery();) {
+
+            ArrayList<Classroom> arr = new ArrayList<>();
+            while (rs.next()) {
+                Classroom classroom = new Classroom();
+                classroom.setNo(rs.getInt("crno"));
+                classroom.setTitle(rs.getString("titl"));
+                classroom.setStartDate(rs.getDate("sdt"));
+                classroom.setEndDate(rs.getDate("edt"));
+                classroom.setRoom(rs.getString("room"));
+                arr.add(classroom);
+            }
+            return arr;
+        }
+    }
+    
+    public int insert(Classroom classroom) throws Exception {
+        try (
+                Connection con = dataSource.getConnection();
+            PreparedStatement stmt = 
+                    con.prepareStatement("insert into pms_classroom(titl, sdt, edt, room) values(?, ?, ?, ?)");){
+            
+            stmt.setString(1, classroom.getTitle());
+            stmt.setDate(2, classroom.getStartDate(), Calendar.getInstance(Locale.KOREAN));
+            stmt.setDate(3, classroom.getEndDate(), Calendar.getInstance(Locale.KOREAN));
+            stmt.setString(4, classroom.getRoom());
+            return stmt.executeUpdate();
+        }
+    }
+    
+    public int update(Classroom classroom) throws Exception {
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = 
+                        con.prepareStatement("update pms_classroom set titl=?, sdt=?, edt=?, room=? where crno=?");){
+            
+            stmt.setString(1, classroom.getTitle());
+            stmt.setDate(2, classroom.getStartDate(), Calendar.getInstance(Locale.KOREAN));
+            stmt.setDate(3, classroom.getEndDate(), Calendar.getInstance(Locale.KOREAN));
+            stmt.setString(4, classroom.getRoom());
+            stmt.setInt(5, classroom.getNo());
+            return stmt.executeUpdate();
+        }
+    }
+    
+    public Classroom selectOne(int no) throws Exception {
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = 
+                     con.prepareStatement("select crno, titl, sdt, edt, room from pms_classroom where crno=?");) {
+
+            stmt.setInt(1, no);
+
+            try (ResultSet rs = stmt.executeQuery();) {
+                if (!rs.next()) {
+                    return null;
+                }
+                Classroom classroom = new Classroom();
+                classroom.setNo(rs.getInt("crno"));
+                classroom.setTitle(rs.getString("titl"));
+                classroom.setStartDate(rs.getDate("sdt"));
+                classroom.setEndDate(rs.getDate("edt"));
+                classroom.setRoom(rs.getString("room"));
+                return classroom;
             }
         }
-        return -1;
     }
 }

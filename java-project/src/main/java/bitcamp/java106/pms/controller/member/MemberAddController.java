@@ -19,15 +19,20 @@ public class MemberAddController implements Controller {
 
     @Override
     public void service(ServerRequest request, ServerResponse response) {
+        
         Member member = new Member();
         member.setId(request.getParameter("id"));
         member.setEmail(request.getParameter("email"));
         member.setPassword(request.getParameter("password"));
         
-        memberDao.insert(member);
-        
         PrintWriter out = response.getWriter();
-        out.println("등록 성공!");
+        try {
+            memberDao.insert(member);
+            out.println("등록 성공!");
+        } catch (Exception e) {
+            out.println("등록 실패!");
+            e.printStackTrace(out);
+        }
     }
     
 }

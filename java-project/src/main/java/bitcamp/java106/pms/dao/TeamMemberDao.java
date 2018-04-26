@@ -1,95 +1,81 @@
 package bitcamp.java106.pms.dao;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.List;
 
 import bitcamp.java106.pms.Annotation.Component;
+import bitcamp.java106.pms.domain.Task;
+import bitcamp.java106.pms.jdbc.DataSource;
 
 @Component
 public class TeamMemberDao {
     
-    private HashMap<String, ArrayList<String>> collection;
+    DataSource dataSource;
     
-    public TeamMemberDao() throws Exception {
-        this.load();
+    public TeamMemberDao(DataSource dataSource){
+        this.dataSource = dataSource;
     }
     
-    @SuppressWarnings("unchecked")
-    public void load() throws Exception {
-        try (ObjectInputStream in = 
-                new ObjectInputStream(new BufferedInputStream(new FileInputStream("data/board.data")));) {
-            try {
-                collection = (HashMap<String, ArrayList<String>>)in.readObject();
-            } catch (Exception e) {
-                collection = new HashMap<>();
+    public int insert(String teamName, String memberId) throws Exception {
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = con
+                        .prepareStatement("insert into pms_team_member(tnm, mid) values(?, ?)");) {
+
+            stmt.setString(1, teamName);
+            stmt.setString(2, memberId);
+            return stmt.executeUpdate();
+        }
+    }
+    
+    public int delete(String teamName, String memberId) throws Exception {
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = con.prepareStatement("delete from pms_team_member where tnm=? and mid=?");) {
+
+            stmt.setString(1, teamName);
+            stmt.setString(2, memberId);
+            return stmt.executeUpdate();
+        }
+    }
+    
+    public List<String> selectList(String teamName) throws Exception {
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = 
+                        con.prepareStatement("select mid from pms_team_member where tnm=?");) {
+
+            stmt.setString(1, teamName);
+            try (ResultSet rs = stmt.executeQuery();) {
+                ArrayList<String> arr = new ArrayList<>();
+                while (rs.next()) {
+                    Task task = new Task();
+                    arr.add(rs.getString("mid"));
+                }
+                return arr;
             }
         }
     }
     
-    public void save() throws Exception {
-        try (ObjectOutputStream out = 
-                new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream("data/teammember.data")));) {
-            out.writeObject(collection);
+    public boolean isExist(String teamName, String memberId) throws Exception {
+        try (
+                Connection con = dataSource.getConnection();
+                PreparedStatement stmt = 
+                        con.prepareStatement("select mid from pms_team_member where tnm=? and mid=?");) {
+
+            stmt.setString(1, teamName);
+            stmt.setString(2, memberId);
+            try (ResultSet rs = stmt.executeQuery();) {
+                if(rs.next()) {
+                    return true;
+                }
+                return false;
+            }
         }
-    }
-    
-    public int addMember(String teamName, String memberId) {
-        String teamNameLC = teamName.toLowerCase();
-        String memberIdLC = memberId.toLowerCase();
-        
-        ArrayList<String> members = collection.get(teamNameLC);
-        if(members == null) {
-            members = new ArrayList<>();
-            members.add(memberIdLC);
-            collection.put(teamNameLC, members);
-            return 1;
-        }
-        
-        if(members.contains(memberIdLC)) {
-            return 0;
-        }
-        
-        members.add(memberIdLC);
-        return 1;
-    }
-    
-    public int deleteMember(String teamName, String memberId) {
-        String teamNameLC = teamName.toLowerCase();
-        String memberIdLC = memberId.toLowerCase();
-        
-        ArrayList<String> members = collection.get(teamNameLC);
-        if(members == null || !members.contains(memberIdLC)) {
-            return 0;
-        }
-        
-        members.remove(memberIdLC);
-        return 1;
-    }
-    
-    public Iterator<String> getMembers(String teamName) {
-        ArrayList<String> members = collection.get(teamName.toLowerCase());
-        if(members == null) {
-            return null;
-        }    
-        return members.iterator();
-    }
-    
-    public boolean isExist(String teamName, String memberId) {
-        String teamNameLC = teamName.toLowerCase();
-        String memberIdLC = memberId.toLowerCase();
-        
-        ArrayList<String> members = collection.get(teamNameLC);
-        if(members == null || !members.contains(memberIdLC)) {
-            return false;
-        }
-        return true;
     }
     
 }

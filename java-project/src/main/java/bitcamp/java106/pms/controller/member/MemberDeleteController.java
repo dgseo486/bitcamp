@@ -22,13 +22,17 @@ public class MemberDeleteController implements Controller {
         PrintWriter out = response.getWriter();
         String id = request.getParameter("id");
         
-        Member member = memberDao.get(id);
-
-        if (member == null) {
-            out.println("해당 아이디의 회원이 없습니다.");
-        } else {
-            memberDao.delete(id);
-            out.println("삭제하였습니다.");
+        try {
+            int count = memberDao.delete(id);
+            
+            if (count == 0) {
+                out.println("해당 아이디의 회원이 없습니다.");
+            } else {
+                out.println("삭제하였습니다.");
+            }
+        } catch (Exception e) {
+            out.println("삭제 실패!");
+            e.printStackTrace(out);
         }
     }
     

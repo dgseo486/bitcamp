@@ -31,20 +31,19 @@ public class TaskDeleteController implements Controller {
     @Override
     public void service(ServerRequest request, ServerResponse response) {
         PrintWriter out = response.getWriter();
-        String teamName = request.getParameter("teamName");
-        Team team = teamDao.get(teamName);
-        if (team == null) {
-            System.out.printf("'%s' 팀은 존재하지 않습니다.\n", teamName);
-            return;
+        
+        try {
+            int no = Integer.parseInt(request.getParameter("no"));
+            int count = taskDao.delete(no);
+            if(count == 0) {
+                out.println("해당 작업이 존재하지 않습니다.");
+            } else {
+                out.println("삭제하였습니다.");
+            }
+        } catch (Exception e) {
+            out.println("삭제 실패!");
+            e.printStackTrace(out);
         }
-        int taskNo = Integer.parseInt(request.getParameter("no"));
-        Task task = taskDao.get(taskNo);
-        if (task == null) {
-            System.out.printf("'%s'팀의 %d번 작업을 찾을 수 없습니다.\n", teamName, taskNo);
-            return;
-        }
-        taskDao.delete(taskNo);
-        System.out.println("삭제하였습니다.");
     }
     
 }

@@ -6,7 +6,7 @@ root1234!@#$
 
 CREATE USER 'java106'@'localhost' identified by '1111';
 
-show database;
+show databases;
 
 use mysql
 

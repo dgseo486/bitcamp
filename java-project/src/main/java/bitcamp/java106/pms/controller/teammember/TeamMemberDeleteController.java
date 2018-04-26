@@ -27,17 +27,18 @@ public class TeamMemberDeleteController implements Controller {
     public void service(ServerRequest request, ServerResponse response) {
         PrintWriter out = response.getWriter();
         String teamName = request.getParameter("teamName");
-        Team team = teamDao.get(teamName);
-        if (team == null) {
-            out.printf("%s 팀은 존재하지 않습니다.\n", teamName);
-            return;
-        }
         String memberId = request.getParameter("memberId");
-        if (!teamMemberDao.isExist(teamName, memberId)) {
-            out.println("이 팀의 회원이 아닙니다.");
-            return;
+        
+        try {
+            int count = teamMemberDao.delete(teamName, memberId);
+            if(count == 0) {
+                out.println("해당 팀원은 존재하지 않습니다.");
+            } else {
+                out.println("팀에서 회원을 삭제하였습니다.");
+            }
+        } catch (Exception e) {
+            out.print("삭제 실패!");
+            e.printStackTrace(out);
         }
-        teamMemberDao.deleteMember(teamName, memberId);
-        out.println("팀에서 회원을 삭제하였습니다.");
     }
 }

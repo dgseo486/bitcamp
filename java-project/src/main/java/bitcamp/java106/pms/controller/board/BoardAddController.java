@@ -24,10 +24,15 @@ public class BoardAddController implements Controller {
         board.setContent(request.getParameter("content"));
         board.setCreatedDate(new Date(System.currentTimeMillis()));
         
-        boardDao.insert(board);
-        
         PrintWriter out = response.getWriter();
-        out.println("등록 성공!");
+        try {
+            boardDao.insert(board);
+            out.println("등록 성공!");
+        } catch (Exception e) {
+            out.println("등록 실패!");
+            e.printStackTrace(out);
+        }
+        
     }
     
 }

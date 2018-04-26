@@ -19,21 +19,23 @@ public class MemberUpdateController implements Controller {
 
     public void service(ServerRequest request, ServerResponse response) {
         PrintWriter out = response.getWriter();
-        String id = request.getParameter("id");
         
-        Member member = memberDao.get(id);
+        Member member = new Member();
+        member.setId(request.getParameter("id"));
+        member.setEmail(request.getParameter("email"));
+        member.setPassword(request.getParameter("password"));
 
-        if (member == null) {
-            System.out.println("해당 아이디의 회원이 없습니다.");
-        } else {
-            Member updateMember = new Member();
-            updateMember.setId(id);
-            updateMember.setEmail(request.getParameter("email"));
-            updateMember.setPassword(request.getParameter("password"));
+        try {
+            int count = memberDao.update(member);
             
-            int index = memberDao.indexOf(id);
-            memberDao.update(index, updateMember);
-            out.println("변경하였습니다.");
+            if(count == 0) {
+                out.println("해당 아이디의 회원이 없습니다.");
+            } else {
+                out.println("변경하였습니다.");
+            } 
+        } catch (Exception e) {
+            out.println("변경 실패!");
+            e.printStackTrace(out);
         }
     }
 }

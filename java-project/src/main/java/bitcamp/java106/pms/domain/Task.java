@@ -6,8 +6,6 @@ import java.sql.Date;
 public class Task implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    public static int count = 1;
-    
     public static final int READY = 0;
     public static final int WORKING = 1;
     public static final int COMPLETE = 9;
@@ -20,19 +18,6 @@ public class Task implements Serializable {
     private Member worker;
     private Team team;
     
-    public Task(Team team) {
-        this.team = team;
-        this.no = count++;
-    }
-    
-    public Task(Team team, String title, Date startDate, Date endDate) {
-        this(team);
-        this.title = title;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.state = READY;
-    }
-
     public int getNo() {
         return no;
     }
@@ -61,32 +46,39 @@ public class Task implements Serializable {
         return team;
     }
 
-    public void setNo(int no) {
+    public Task setNo(int no) {
         this.no = no;
+        return this;
     }
 
-    public void setTitle(String title) {
+    public Task setTitle(String title) {
         this.title = title;
+        return this;
     }
 
-    public void setStartDate(Date startDate) {
+    public Task setStartDate(Date startDate) {
         this.startDate = startDate;
+        return this;
     }
 
-    public void setEndDate(Date endDate) {
+    public Task setEndDate(Date endDate) {
         this.endDate = endDate;
+        return this;
     }
 
-    public void setState(int state) {
+    public Task setState(int state) {
         this.state = state;
+        return this;
     }
 
-    public void setWorker(Member worker) {
+    public Task setWorker(Member worker) {
         this.worker = worker;
+        return this;
     }
 
-    public void setTeam(Team team) {
+    public Task setTeam(Team team) {
         this.team = team;
+        return this;
     }
 
     @Override

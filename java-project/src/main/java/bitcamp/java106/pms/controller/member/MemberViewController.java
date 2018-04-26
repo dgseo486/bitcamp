@@ -21,16 +21,19 @@ public class MemberViewController implements Controller {
         PrintWriter out = response.getWriter();
         String id = request.getParameter("id");
         
-        Member member = memberDao.get(id);
-        
-        if (member == null) {
-            out.println("아이디를 입력하시기 바랍니다.");
-        } else {
-            out.printf("아이디: %s\n", member.getId());
-            out.printf("이메일: %s\n", member.getEmail());
-            out.printf("암호: %s\n", member.getPassword());
+        try {
+            Member member = memberDao.selectOne(id);
+            
+            if (member == null) {
+                out.println("아이디를 입력하시기 바랍니다.");
+            } else {
+                out.printf("아이디: %s\n", member.getId());
+                out.printf("이메일: %s\n", member.getEmail());
+                out.printf("암호: -\n");
+            }
+        } catch (Exception e) {
+            out.println("상세조회 실패!");
+            e.printStackTrace(out);
         }
-        
     }
-    
 }

@@ -23,8 +23,7 @@ public class TeamAddController implements Controller {
 
     @Override
     public void service(ServerRequest request, ServerResponse response) {
-        PrintWriter out = response.getWriter();
-        
+
         Team team = new Team();
         team.setName(request.getParameter("name"));
         team.setDescription(request.getParameter("description"));
@@ -32,9 +31,13 @@ public class TeamAddController implements Controller {
         team.setStartDate(Date.valueOf(request.getParameter("startDate")));
         team.setEndDate(Date.valueOf(request.getParameter("endDate")));
         
-        teamDao.insert(team);
-        
-        out.println("등록 성공!");
+        PrintWriter out = response.getWriter();
+        try {
+            teamDao.insert(team);
+            out.println("등록 성공!");
+        } catch (Exception e) {
+            out.println("등록 실패!");
+            e.printStackTrace(out);
+        }
     }
-    
 }
