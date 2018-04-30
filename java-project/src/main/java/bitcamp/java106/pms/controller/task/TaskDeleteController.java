@@ -2,17 +2,14 @@ package bitcamp.java106.pms.controller.task;
 
 import java.io.PrintWriter;
 
-import bitcamp.java106.pms.Annotation.Component;
+import bitcamp.java106.pms.annotation.Component;
 import bitcamp.java106.pms.controller.Controller;
 import bitcamp.java106.pms.dao.MemberDao;
 import bitcamp.java106.pms.dao.TaskDao;
 import bitcamp.java106.pms.dao.TeamDao;
 import bitcamp.java106.pms.dao.TeamMemberDao;
-import bitcamp.java106.pms.domain.Task;
-import bitcamp.java106.pms.domain.Team;
 import bitcamp.java106.pms.server.ServerRequest;
 import bitcamp.java106.pms.server.ServerResponse;
-import bitcamp.java106.pms.util.Console;
 
 @Component("/task/delete")
 public class TaskDeleteController implements Controller {

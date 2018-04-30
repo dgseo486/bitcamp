@@ -3,13 +3,12 @@ package bitcamp.java106.pms.controller.classroom;
 import java.io.PrintWriter;
 import java.sql.Date;
 
-import bitcamp.java106.pms.Annotation.Component;
+import bitcamp.java106.pms.annotation.Component;
 import bitcamp.java106.pms.controller.Controller;
 import bitcamp.java106.pms.dao.ClassroomDao;
 import bitcamp.java106.pms.domain.Classroom;
 import bitcamp.java106.pms.server.ServerRequest;
 import bitcamp.java106.pms.server.ServerResponse;
-import bitcamp.java106.pms.util.Console;
 
 @Component("/classroom/update")
 public class ClassroomUpdateController implements Controller {

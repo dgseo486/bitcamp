@@ -3,7 +3,7 @@ package bitcamp.java106.pms.controller.task;
 import java.io.PrintWriter;
 import java.util.List;
 
-import bitcamp.java106.pms.Annotation.Component;
+import bitcamp.java106.pms.annotation.Component;
 import bitcamp.java106.pms.controller.Controller;
 import bitcamp.java106.pms.dao.TaskDao;
 import bitcamp.java106.pms.dao.TeamDao;

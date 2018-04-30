@@ -3,7 +3,7 @@ package bitcamp.java106.pms.controller.classroom;
 import java.io.PrintWriter;
 import java.util.List;
 
-import bitcamp.java106.pms.Annotation.Component;
+import bitcamp.java106.pms.annotation.Component;
 import bitcamp.java106.pms.controller.Controller;
 import bitcamp.java106.pms.dao.ClassroomDao;
 import bitcamp.java106.pms.domain.Classroom;

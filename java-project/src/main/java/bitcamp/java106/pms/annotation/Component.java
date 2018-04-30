@@ -1,4 +1,4 @@
-package bitcamp.java106.pms.Annotation;
+package bitcamp.java106.pms.annotation;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

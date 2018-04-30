@@ -2,16 +2,13 @@ package bitcamp.java106.pms.controller.team;
 
 import java.io.PrintWriter;
 import java.sql.Date;
-import java.util.Iterator;
-import java.util.Scanner;
 
-import bitcamp.java106.pms.Annotation.Component;
+import bitcamp.java106.pms.annotation.Component;
 import bitcamp.java106.pms.controller.Controller;
 import bitcamp.java106.pms.dao.TeamDao;
 import bitcamp.java106.pms.domain.Team;
 import bitcamp.java106.pms.server.ServerRequest;
 import bitcamp.java106.pms.server.ServerResponse;
-import bitcamp.java106.pms.util.Console;
 
 @Component("/team/add")
 public class TeamAddController implements Controller {

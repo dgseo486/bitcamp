@@ -3,7 +3,7 @@ package bitcamp.java106.pms.controller.teammember;
 import java.io.PrintWriter;
 import java.util.List;
 
-import bitcamp.java106.pms.Annotation.Component;
+import bitcamp.java106.pms.annotation.Component;
 import bitcamp.java106.pms.controller.Controller;
 import bitcamp.java106.pms.dao.TeamDao;
 import bitcamp.java106.pms.dao.TeamMemberDao;
@@ -40,7 +40,5 @@ public class TeamMemberListController implements Controller {
             out.println("목록 가져오기 실패!");
             e.printStackTrace(out);
         }
-        
-        
     }
 }

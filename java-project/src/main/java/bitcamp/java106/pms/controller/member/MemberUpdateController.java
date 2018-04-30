@@ -2,14 +2,14 @@ package bitcamp.java106.pms.controller.member;
 
 import java.io.PrintWriter;
 
-import bitcamp.java106.pms.Annotation.Component;
+import bitcamp.java106.pms.annotation.Component;
 import bitcamp.java106.pms.controller.Controller;
 import bitcamp.java106.pms.dao.MemberDao;
 import bitcamp.java106.pms.domain.Member;
 import bitcamp.java106.pms.server.ServerRequest;
 import bitcamp.java106.pms.server.ServerResponse;
 
-@Component("/member/updates")
+@Component("/member/update")
 public class MemberUpdateController implements Controller {
     MemberDao memberDao;
     
