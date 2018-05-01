@@ -1,15 +1,11 @@
 package bitcamp.java106.pms;
 
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.HashMap;
 
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import bitcamp.java106.pms.context.ApplicationContext;
 import bitcamp.java106.pms.controller.Controller;
 import bitcamp.java106.pms.server.ServerRequest;
 import bitcamp.java106.pms.server.ServerResponse;
@@ -19,13 +15,7 @@ public class DefaultApplicationContainer implements ApplicationContainer {
     ApplicationContext iocContainer;
     
     public DefaultApplicationContainer() throws Exception {
-        HashMap<String, Object> objMap = new HashMap<>();
-        
-        InputStream inputStream = Resources.getResourceAsStream("bitcamp/java106/pms/sql/mybatis-config.xml");
-        SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(inputStream);
-        objMap.put("SqlSessionFactory", factory);
-        
-        iocContainer = new ApplicationContext("bitcamp.java106.pms", objMap);
+        iocContainer = new AnnotationConfigApplicationContext(AppConfig.class);
     }
     
     @Override

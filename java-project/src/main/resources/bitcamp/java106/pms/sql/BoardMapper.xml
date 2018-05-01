@@ -16,32 +16,32 @@
     select
         bno,titl,cdt
     from
-        pms_board
+        pms2_board
     <!-- LIMIT
         #{startIndex}, #{pageSize} -->
   </select>
   
   <insert id="insert" parameterType="Board" useGeneratedKeys="true" keyColumn="bno" keyProperty="no">
     insert into
-        pms_board(titl, cont, cdt)
+        pms2_board(titl, cont, cdt)
     values
         (#{title},#{content},now())
   </insert>
   
   <select id="selectOne" parameterType="int" resultMap="BoardMap">
     select bno,titl,cont,cdt
-    from pms_board
+    from pms2_board
     where bno=#{value}
   </select>
   
   <update id="update" parameterType="Board">
-    update pms_board
+    update pms2_board
     set titl=#{title}, cont=#{content}, cdt=now()
     where bno=#{no}
   </update>
   
   <delete id="delete" parameterType="int">
-    delete from pms_board
+    delete from pms2_board
     where bno=#{value}
   </delete>
   

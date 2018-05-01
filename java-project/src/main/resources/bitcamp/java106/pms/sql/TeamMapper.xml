@@ -15,20 +15,20 @@
 
   <select id="selectList" resultMap="TeamMap" parameterType="map">
     select name, dscrt, max_qty, sdt, edt
-    from pms_team
+    from pms2_team
   </select>
   
   <insert id="insert" parameterType="Team" useGeneratedKeys="true" keyColumn="name" keyProperty="name">
-    insert into pms_team(name, dscrt, max_qty, sdt, edt)
+    insert into pms2_team(name, dscrt, max_qty, sdt, edt)
     values(#{name}, #{description}, #{maxQty}, #{startDate}, #{endDate})
   </insert>
   
   <select id="selectOne" parameterType="string" resultMap="TeamMap">
-    select name, dscrt, max_qty, sdt, edt from pms_team where name=#{value}
+    select name, dscrt, max_qty, sdt, edt from pms2_team where name=#{value}
   </select>
   
   <update id="update" parameterType="Team">
-    update pms_team
+    update pms2_team
     set name=#{name},
         dscrt=#{description},
         max_qty=#{maxQty},
@@ -38,7 +38,7 @@
   </update>
   
   <delete id="delete" parameterType="string">
-    delete from pms_team
+    delete from pms2_team
     where name=#{value}
   </delete>
   
