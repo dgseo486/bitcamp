@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        
+        <bean id="c1" class="bitcamp.java106.step02.Car"/>
+        
+        <bean id="c2" name="c3" class="bitcamp.java106.step02.Car"/>
+        
+        <bean name="c4" class="bitcamp.java106.step02.Car"/>
+        
+        <bean id="c5" name="c51 c52 c53" class="bitcamp.java106.step02.Car"/>
+        <bean id="c6" name="c61,c62,c63" class="bitcamp.java106.step02.Car"/>
+        <bean id="c7" name="c71;c72;c73" class="bitcamp.java106.step02.Car"/>
+        <bean id="c8" name="c81:c82:c83" class="bitcamp.java106.step02.Car"/>
+        
+        <bean name="c91 c92 c93" class="bitcamp.java106.step02.Car"/>
+</beans>

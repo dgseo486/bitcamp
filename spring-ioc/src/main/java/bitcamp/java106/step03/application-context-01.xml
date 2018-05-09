@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+        
+        <bean id="c1" class="bitcamp.java106.step03.Car"/>
+        
+        <bean id="c2" class="bitcamp.java106.step03.Car">
+            <constructor-arg>
+                <value>티코</value>
+            </constructor-arg>
+        </bean>
+        
+        <bean id="c3" class="bitcamp.java106.step03.Car">
+            <constructor-arg>
+                <value>1980</value>
+            </constructor-arg>
+        </bean>
+        
+        <bean id="c4" class="bitcamp.java106.step03.Car">
+            <constructor-arg>
+                <value type="int">1980</value>
+            </constructor-arg>
+        </bean>
+        
+        <bean id="c5" class="bitcamp.java106.step03.Car">
+            <constructor-arg>
+                <value type="java.lang.String">소나타</value>
+            </constructor-arg>
+            <constructor-arg>
+                <value type="int">1980</value>
+            </constructor-arg>
+        </bean>
+        
+        <bean id="c6" class="bitcamp.java106.step03.Car">
+            <constructor-arg>
+                <value type="int">1980</value>
+            </constructor-arg>
+            <constructor-arg>
+                <value type="java.lang.String">소나타</value>
+            </constructor-arg>
+        </bean>
+        
+        <bean id="c7" class="bitcamp.java106.step03.Car">
+            <constructor-arg name="cc">
+                <value type="int">1980</value>
+            </constructor-arg>
+            <constructor-arg name="model">
+                <value type="java.lang.String">소나타</value>
+            </constructor-arg>
+        </bean>
+        
+        <bean id="c8" class="bitcamp.java106.step03.Car">
+            <constructor-arg index="0">
+                <value type="java.lang.String">소나타</value>
+            </constructor-arg>
+            <constructor-arg index="1">
+                <value type="int">1980</value>
+            </constructor-arg>
+        </bean>
+        
+        <bean id="c9" class="bitcamp.java106.step03.Car">
+            <constructor-arg index="0">
+                <value type="java.lang.String">소나타</value>
+            </constructor-arg>
+            <constructor-arg index="1">
+                <value type="int">1980</value>
+            </constructor-arg>
+        </bean>
+        
+        <bean id="c10" class="bitcamp.java106.step03.Car">
+            <constructor-arg index="0">
+                <value type="int">1980</value>
+            </constructor-arg>
+            <constructor-arg index="1">
+                <value type="java.lang.String">소나타</value>
+            </constructor-arg>
+        </bean>
+</beans>
