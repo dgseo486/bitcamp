@@ -149,7 +149,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="bitcamp-web00" path="/bitcamp-web00" reloadable="true" source="org.eclipse.jst.jee.server:bitcamp-web00"/></Host>
+      <Context docBase="bitcamp-web00" path="/bitcamp-web00" reloadable="true" source="org.eclipse.jst.jee.server:bitcamp-web00"/><Context docBase="bitcamp-web01" path="/bitcamp-web01" reloadable="true" source="org.eclipse.jst.j2ee.server:bitcamp-web01"/></Host>
     </Engine>
   </Service>
 </Server>
