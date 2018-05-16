@@ -24,6 +24,7 @@
     <servlet-mapping>
         <servlet-name>I am okok</servlet-name>
         <url-pattern>/step02/exam02</url-pattern>
+        <url-pattern>/step02/exam02.html</url-pattern>
     </servlet-mapping>
     
     <welcome-file-list>

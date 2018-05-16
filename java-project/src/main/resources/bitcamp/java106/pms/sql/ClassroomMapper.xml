@@ -14,23 +14,18 @@
   </resultMap>
 
   <select id="selectList" resultMap="ClassroomMap" parameterType="map">
-    select crno, titl, sdt, edt, room
+    select crno,titl,sdt,edt,room
     from pms2_classroom
   </select>
   
   <insert id="insert" parameterType="Classroom" useGeneratedKeys="true" keyColumn="crno" keyProperty="no">
-    insert into pms2_classroom(titl, sdt, edt, room)
-    values(#{title}, #{sdt}, #{edt}, #{room()})
+    insert into pms2_classroom(titl,sdt,edt,room)
+    values(#{title},#{startDate},#{endDate},#{room})
   </insert>
   
-  <select id="selectOne" parameterType="int" resultMap="ClassroomMap">
-    select crno, titl, sdt, edt, room
-    from pms2_classroom
-    where crno=#{value}
-  </select>
-  
-  <update id="update" parameterType="Board">
-    update pms2_classroom set titl=#{title}, sdt=#{startDate}, edt=#{endDate}, room=#{room}
+  <update id="update" parameterType="Classroom">
+    update pms2_classroom
+    set titl=#{title}, sdt=#{startDate}, edt=#{endDate}, room=#{room}
     where crno=#{no}
   </update>
   

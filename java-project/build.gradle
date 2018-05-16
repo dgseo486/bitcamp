@@ -1,4 +1,4 @@
-apply plugin: 'eclipse'
+apply plugin: 'eclipse-wtp'
 apply plugin: 'java'
 apply plugin: 'war'
 
@@ -29,5 +29,5 @@ dependencies {
     compile group: 'org.springframework', name: 'spring-context', version: '5.0.5.RELEASE'
     
     //서블릿 라이브러리
-    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
+    providedCompile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
 }
