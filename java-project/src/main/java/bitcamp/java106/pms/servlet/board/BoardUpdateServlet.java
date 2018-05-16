@@ -2,7 +2,6 @@ package bitcamp.java106.pms.servlet.board;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,48 +13,52 @@ import bitcamp.java106.pms.dao.BoardDao;
 import bitcamp.java106.pms.domain.Board;
 import bitcamp.java106.pms.servlet.InitServlet;
 
-@WebServlet("/board/add")
-public class BoardAddServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-    
+@SuppressWarnings("serial")
+@WebServlet("/board/update")
+public class BoardUpdateServlet extends HttpServlet {
     BoardDao boardDao;
-    
+
     @Override
     public void init() throws ServletException {
-        boardDao = InitServlet.getApplicationContext().getBean(BoardDao.class);
+        this.boardDao = InitServlet.getApplicationContext().getBean(BoardDao.class);
     }
-    
+
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        
-        Board board = new Board();
-        board.setTitle(request.getParameter("title"));
-        board.setContent(request.getParameter("content"));
-        board.setCreatedDate(new Date(System.currentTimeMillis()));
-        
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
+
+        Board board = new Board();
+        board.setNo(Integer.parseInt(request.getParameter("no")));
+        board.setTitle(request.getParameter("title"));
+        board.setContent(request.getParameter("content"));
+
         out.println("<!DOCTYPE html>");
         out.println("<html>");
         out.println("<head>");
         out.println("<meta charset='UTF-8'>");
         out.println("<meta http-equiv='Refresh' content='1;url=list'>");
-        out.println("<title>게시물 등록</title>");
+        out.println("<title>게시물 변경 결과</title>");
         out.println("</head>");
         out.println("<body>");
-        out.println("<h1>게시물 등록</h1>");
+        out.println("<h1>게시물 변경 결과</h1>");
+
         try {
-            boardDao.insert(board);
-            out.println("<p>등록 성공!</p>");
+            int count = boardDao.update(board);
+            if (count == 0) {
+                out.println("<p>해당 게시물이 존재하지 않습니다.</p>");
+            } else {
+                out.println("<p>변경하였습니다.</p>");
+            }
         } catch (Exception e) {
-            out.println("<p>등록 실패!</p>");
+            out.println("<p>변경 실패!</p>");
             e.printStackTrace(out);
         }
+
         out.println("</body>");
         out.println("</html>");
     }
-    
+
 }

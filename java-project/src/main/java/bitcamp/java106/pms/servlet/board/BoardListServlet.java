@@ -20,25 +20,46 @@ import bitcamp.java106.pms.servlet.InitServlet;
 @WebServlet("/board/list")
 public class BoardListServlet extends HttpServlet {
     BoardDao boardDao;
-    
+
     @Override
     public void init() throws ServletException {
         boardDao = InitServlet.getApplicationContext().getBean(BoardDao.class);
     }
-    
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/plain;charset=UTF-8");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        try{
+
+        out.println("<!DOCTYPE html>");
+        out.println("<html>");
+        out.println("<head>");
+        out.println("<meta charset='UTF-8'>");
+        out.println("<title>게시물 목록</title>");
+        out.println("</head>");
+        out.println("<body>");
+        out.println("<h1>게시물 목록</h1>");
+        try {
             List<Board> list = boardDao.selectList();
-            for(Board board : list) {
-                out.printf("%d, %s, %s\n", board.getNo(), board.getTitle(), board.getCreatedDate());
+            out.println("<p><a href='form.html'>새글</a></p>");
+            out.println("<table border='1'>");
+            out.println("<tr>");
+            out.println("    <th>번호</th><th>제목</th><th>등록</th>");
+            out.println("</tr>");
+            for (Board board : list) {
+                out.println("<tr>");
+                out.printf("<td>%d</td><td><a href='view?no=%d'>%s</a></td><td>%s</td>\n",
+                        board.getNo(), board.getNo(), board.getTitle(), board.getCreatedDate());
+                out.println("</tr>");
             }
-        } catch(Exception e) {
-            out.println("목록 가져오기 실패!");
+            out.println("</table>");
+        } catch (Exception e) {
+            out.println("<p>목록 가져오기 실패!</p>");
             e.printStackTrace(out);
         }
+        out.println("</body>");
+        out.println("</html>");
     }
-    
+
 }
