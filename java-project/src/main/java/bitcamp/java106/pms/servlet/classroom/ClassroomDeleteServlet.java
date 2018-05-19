@@ -2,7 +2,6 @@ package bitcamp.java106.pms.servlet.classroom;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,12 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bitcamp.java106.pms.dao.ClassroomDao;
-import bitcamp.java106.pms.domain.Classroom;
 import bitcamp.java106.pms.servlet.InitServlet;
 
 @SuppressWarnings("serial")
-@WebServlet("/classroom/add")
-public class ClassroomAddServlet extends HttpServlet {
+@WebServlet("/classroom/delete")
+public class ClassroomDeleteServlet extends HttpServlet {
     
     ClassroomDao classroomDao;
     
@@ -27,25 +25,21 @@ public class ClassroomAddServlet extends HttpServlet {
     }
     
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        request.setCharacterEncoding("UTF-8");
-        
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            Classroom classroom = new Classroom();
-            classroom.setTitle(request.getParameter("title"));
-            classroom.setStartDate(Date.valueOf(request.getParameter("startDate")));
-            classroom.setEndDate(Date.valueOf(request.getParameter("endDate")));
-            classroom.setRoom(request.getParameter("room"));
+            int no = Integer.parseInt(request.getParameter("no"));
+            int count = classroomDao.delete(no);
             
-            classroomDao.insert(classroom);
+            if (count == 0) {
+                throw new Exception("해당 강의가 없습니다.");
+            }
             response.sendRedirect("list");
-            
         } catch (Exception e) {
             RequestDispatcher 요청배달자 = request.getRequestDispatcher("/error");
             request.setAttribute("error", e);
-            request.setAttribute("title", "강의 등록 실패");
+            request.setAttribute("title", "강의 삭제 실패");
             요청배달자.forward(request, response);
         }
     }
+    
 }

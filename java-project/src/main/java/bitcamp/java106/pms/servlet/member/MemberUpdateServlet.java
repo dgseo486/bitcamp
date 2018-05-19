@@ -1,8 +1,6 @@
 package bitcamp.java106.pms.servlet.member;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,34 +14,37 @@ import bitcamp.java106.pms.domain.Member;
 import bitcamp.java106.pms.servlet.InitServlet;
 
 @SuppressWarnings("serial")
-@WebServlet("/member/add")
-public class MemberAddServlet extends HttpServlet {
+@WebServlet("/member/update")
+public class MemberUpdateServlet extends HttpServlet {
     
     MemberDao memberDao;
     
     @Override
     public void init() throws ServletException {
-        memberDao = InitServlet.getApplicationContext().getBean(MemberDao.class);
+        this.memberDao = InitServlet.getApplicationContext().getBean(MemberDao.class);
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
         request.setCharacterEncoding("UTF-8");
-        
+
         try {
             Member member = new Member();
             member.setId(request.getParameter("id"));
             member.setEmail(request.getParameter("email"));
             member.setPassword(request.getParameter("password"));
             
-            memberDao.insert(member);
+            int count = memberDao.update(member);
+            if(count == 0) {
+                throw new Exception("해당 회원이 존재하지 않습니다.");
+            }
             response.sendRedirect("list");
             
         } catch (Exception e) {
             RequestDispatcher 요청배달자 = request.getRequestDispatcher("/error");
             request.setAttribute("error", e);
-            request.setAttribute("title", "회원 등록 실패");
+            request.setAttribute("title", "회원 목록조회 실패");
             요청배달자.forward(request, response);
         }
     }

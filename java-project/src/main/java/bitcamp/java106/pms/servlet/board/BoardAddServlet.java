@@ -1,9 +1,8 @@
 package bitcamp.java106.pms.servlet.board;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Date;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,32 +29,19 @@ public class BoardAddServlet extends HttpServlet {
         
         request.setCharacterEncoding("UTF-8");
         
-        Board board = new Board();
-        board.setTitle(request.getParameter("title"));
-        board.setContent(request.getParameter("content"));
-        board.setCreatedDate(new Date(System.currentTimeMillis()));
-        
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<meta charset='UTF-8'>");
-        out.println("<meta http-equiv='Refresh' content='1;url=list'>");
-        out.println("<title>게시물 등록</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h1>게시물 등록</h1>");
         try {
+            Board board = new Board();
+            board.setTitle(request.getParameter("title"));
+            board.setContent(request.getParameter("content"));
+            
             boardDao.insert(board);
-            out.println("<p>등록 성공!</p>");
+            response.sendRedirect("list");
         } catch (Exception e) {
-            out.println("<p>등록 실패!</p>");
-            e.printStackTrace(out);
+            RequestDispatcher 요청배달자 = request.getRequestDispatcher("/error");
+            request.setAttribute("error", e);
+            request.setAttribute("title", "게시물 등록 실패");
+            요청배달자.forward(request, response);
         }
-        out.println("</body>");
-        out.println("</html>");
     }
     
 }

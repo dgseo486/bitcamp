@@ -1,8 +1,6 @@
 package bitcamp.java106.pms.servlet.member;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,39 +10,37 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bitcamp.java106.pms.dao.MemberDao;
-import bitcamp.java106.pms.domain.Member;
 import bitcamp.java106.pms.servlet.InitServlet;
 
 @SuppressWarnings("serial")
-@WebServlet("/member/add")
-public class MemberAddServlet extends HttpServlet {
+@WebServlet("/member/delete")
+public class MemberDeleteServlet extends HttpServlet {
     
     MemberDao memberDao;
     
     @Override
     public void init() throws ServletException {
-        memberDao = InitServlet.getApplicationContext().getBean(MemberDao.class);
+        this.memberDao = InitServlet.getApplicationContext().getBean(MemberDao.class);
     }
-    
+
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        request.setCharacterEncoding("UTF-8");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String id = request.getParameter("id");
         
         try {
-            Member member = new Member();
-            member.setId(request.getParameter("id"));
-            member.setEmail(request.getParameter("email"));
-            member.setPassword(request.getParameter("password"));
-            
-            memberDao.insert(member);
+            int count = memberDao.delete(id);
+            if (count == 0) {
+                throw new Exception("해당 회원이 없습니다.");
+            }
             response.sendRedirect("list");
             
         } catch (Exception e) {
             RequestDispatcher 요청배달자 = request.getRequestDispatcher("/error");
             request.setAttribute("error", e);
-            request.setAttribute("title", "회원 등록 실패");
+            request.setAttribute("title", "회원 삭제 실패");
             요청배달자.forward(request, response);
         }
     }
+    
 }

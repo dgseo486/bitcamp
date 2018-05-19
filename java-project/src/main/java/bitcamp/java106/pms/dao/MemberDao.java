@@ -48,8 +48,8 @@ public class MemberDao {
     }
     
     public Member selectOne(String id) throws Exception {
-        try (SqlSession sqlSession = this.sqlSessionFactory.openSession();) {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession()) {
             return sqlSession.selectOne("bitcamp.java106.pms.dao.MemberDao.selectOne", id);
-        }
+        }   
     }
 }

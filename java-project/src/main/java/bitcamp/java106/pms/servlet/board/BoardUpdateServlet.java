@@ -3,6 +3,7 @@ package bitcamp.java106.pms.servlet.board;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -24,41 +25,27 @@ public class BoardUpdateServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
         request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-
-        Board board = new Board();
-        board.setNo(Integer.parseInt(request.getParameter("no")));
-        board.setTitle(request.getParameter("title"));
-        board.setContent(request.getParameter("content"));
-
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<meta charset='UTF-8'>");
-        out.println("<meta http-equiv='Refresh' content='1;url=list'>");
-        out.println("<title>게시물 변경 결과</title>");
-        out.println("</head>");
-        out.println("<body>");
-        out.println("<h1>게시물 변경 결과</h1>");
-
+        
         try {
+            Board board = new Board();
+            board.setNo(Integer.parseInt(request.getParameter("no")));
+            board.setTitle(request.getParameter("title"));
+            board.setContent(request.getParameter("content"));
+            
             int count = boardDao.update(board);
             if (count == 0) {
-                out.println("<p>해당 게시물이 존재하지 않습니다.</p>");
-            } else {
-                out.println("<p>변경하였습니다.</p>");
+                throw new Exception("해당 게시물이 존재하지 않습니다.");
             }
+            response.sendRedirect("list");
         } catch (Exception e) {
-            out.println("<p>변경 실패!</p>");
-            e.printStackTrace(out);
+            RequestDispatcher 요청배달자 = request.getRequestDispatcher("/error");
+            request.setAttribute("error", e);
+            request.setAttribute("title", "게시물 변경 실패");
+            요청배달자.forward(request, response);
         }
-
-        out.println("</body>");
-        out.println("</html>");
     }
 
 }
