@@ -1,7 +1,6 @@
 package bitcamp.java106.pms.servlet.classroom;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,8 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.ApplicationContext;
+
 import bitcamp.java106.pms.dao.ClassroomDao;
-import bitcamp.java106.pms.servlet.InitServlet;
+import bitcamp.java106.pms.support.WebApplicationContextUtils;
 
 @SuppressWarnings("serial")
 @WebServlet("/classroom/delete")
@@ -21,7 +22,8 @@ public class ClassroomDeleteServlet extends HttpServlet {
     
     @Override
     public void init() throws ServletException {
-        classroomDao = InitServlet.getApplicationContext().getBean(ClassroomDao.class);
+        ApplicationContext iocContainer = WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
+        classroomDao = iocContainer.getBean(ClassroomDao.class);
     }
     
     @Override

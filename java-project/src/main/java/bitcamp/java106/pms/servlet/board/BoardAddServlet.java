@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.ApplicationContext;
+
 import bitcamp.java106.pms.dao.BoardDao;
 import bitcamp.java106.pms.domain.Board;
-import bitcamp.java106.pms.servlet.InitServlet;
+import bitcamp.java106.pms.support.WebApplicationContextUtils;
 
 @WebServlet("/board/add")
 public class BoardAddServlet extends HttpServlet {
@@ -21,13 +23,12 @@ public class BoardAddServlet extends HttpServlet {
     
     @Override
     public void init() throws ServletException {
-        boardDao = InitServlet.getApplicationContext().getBean(BoardDao.class);
+        ApplicationContext iocContainer = WebApplicationContextUtils.getWebApplicationContext(this.getServletContext());
+        boardDao = iocContainer.getBean(BoardDao.class);
     }
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-        request.setCharacterEncoding("UTF-8");
         
         try {
             Board board = new Board();
