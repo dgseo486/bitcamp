@@ -52,4 +52,10 @@ public class TeamDao {
             return sqlSession.selectOne("bitcamp.java106.pms.dao.TeamDao.selectOne", name);
         }
     }
+    
+    public Team selectOneWithMembers(String name) throws Exception {
+        try (SqlSession sqlSession = this.sqlSessionFactory.openSession();) {
+            return sqlSession.selectOne("bitcamp.java106.pms.dao.TeamDao.selectOneWithMembers", name);
+        }
+    }
 }

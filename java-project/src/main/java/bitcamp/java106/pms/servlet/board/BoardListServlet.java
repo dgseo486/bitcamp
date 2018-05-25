@@ -32,46 +32,18 @@ public class BoardListServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<meta charset='UTF-8'>");
-        out.println("<title>게시물 목록</title>");
-        out.println("</head>");
-        out.println("<body>");
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        request.getRequestDispatcher("/header").include(request, response);
-        
-        out.println("<h1>게시물 목록</h1>");
         try {
             List<Board> list = boardDao.selectList();
-            
-            out.println("<p><a href='form.html'>새 글</a></p>");
-            out.println("<table border='1'>");
-            out.println("<tr>");
-            out.println("    <th>번호</th><th>제목</th><th>등록일</th>");
-            out.println("</tr>");
-            for (Board board : list) {
-                out.println("<tr>");
-                out.printf("    <td>%d</td><td><a href='view?no=%d'>%s</a></td><td>%s</td>\n", 
-                        board.getNo(), board.getNo(), board.getTitle(), board.getCreatedDate());
-                out.println("</tr>");
-            }
-            out.println("</table>");
-            
+            request.setAttribute("list", list);
+            response.setContentType("text/html;charset=UTF-8");
+            request.getRequestDispatcher("/board/list.jsp").include(request, response);
         } catch (Exception e) {
-            RequestDispatcher 요청배달자 = request.getRequestDispatcher("/error");
             request.setAttribute("error", e);
             request.setAttribute("title", "게시물 목록조회 실패");
-            요청배달자.forward(request, response);
+            request.getRequestDispatcher("/error.jsp").forward(request, response);
         }
-        out.println("</body>");
-        out.println("</html>");
     }
 
 }

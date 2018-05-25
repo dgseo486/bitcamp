@@ -30,47 +30,21 @@ public class BoardViewServlet extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int no = Integer.parseInt(request.getParameter("no"));
         
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<meta charset='UTF-8'>");
-        out.println("<title>게시물 보기</title>");
-        out.println("</head>");
-        out.println("<body>");
-        
-        request.getRequestDispatcher("/header").include(request, response);
-        
-        out.println("<h1>게시물 보기</h1>");
-        out.println("<form action='update' method='post'>");
         try{
+            int no = Integer.parseInt(request.getParameter("no"));
             Board board = boardDao.selectOne(no);
             if (board == null) {
                 throw new Exception("유효하지 않은 게시물 번호입니다.");
             }
-            out.println("<table border='1'>");
-            out.printf("<tr><th>번호</th><td><input type='text' name='no' value='%d' readonly></td></tr>\n", board.getNo());
-            out.printf("<tr><th>제목</th><td><input type='text' name='title' value='%s'></td></tr>\n", board.getTitle());
-            out.printf("<tr><th>내용</th><td><textarea name='content' rows='10' cols='60'>%s</textarea></td></tr>\n", board.getContent());
-            out.printf("<tr><th>등록일</th><td>%s</td></tr>\n", board.getCreatedDate());
-            out.println("</table>");
+            request.setAttribute("board", board);
+            response.setContentType("text/html;charset=UTF-8");
+            request.getRequestDispatcher("/board/view.jsp").include(request, response);
+            
         } catch(Exception e) {
-            RequestDispatcher 요청배달자 = request.getRequestDispatcher("/error");
             request.setAttribute("error", e);
             request.setAttribute("title", "게시물 상세조회 실패");
-            요청배달자.forward(request, response);
+            request.getRequestDispatcher("/error.jsp").forward(request, response);
         }
-        out.println("<p>");
-        out.println("<a href='list'>목록</a>");
-        out.println("<button>변경</button>");
-        out.printf("<a href='delete?no=%d'>삭제</a>", no);
-        out.println("</p>");
-        out.println("</form>");
-        out.println("</body>");
-        out.println("</html>");
     }
 }

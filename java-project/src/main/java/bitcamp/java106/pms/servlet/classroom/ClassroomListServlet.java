@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.context.ApplicationContext;
 
 import bitcamp.java106.pms.dao.ClassroomDao;
+import bitcamp.java106.pms.domain.Board;
 import bitcamp.java106.pms.domain.Classroom;
 import bitcamp.java106.pms.support.WebApplicationContextUtils;
 
@@ -31,47 +32,17 @@ public class ClassroomListServlet extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<meta charset='UTF-8'>");
-        out.println("<title>강의 목록</title>");
-        out.println("</head>");
-        out.println("<body>");
-        
-        request.getRequestDispatcher("/header").include(request, response);
-        
-        out.println("<h1>강의 목록</h1>");
         
         try{
             List<Classroom> list = classroomDao.selectList();
-            
-            out.println("<p><a href='form.html'>새 강의</a></p>");
-            out.println("<table border='1'>");
-            out.println("<tr>");
-            out.println("    <th>번호</th><th>강의명</th><th>기간</th><th>강의실</th>");
-            out.println("</tr>");
-            
-            for (Classroom classroom : list) {
-                out.println("<tr>");
-                out.printf("    <td>%d</td>\n", classroom.getNo());
-                out.printf("    <td><a href='view?no=%d'>%s</a></td>\n", classroom.getNo(), classroom.getTitle());
-                out.printf("    <td>%s~%s</td>\n", classroom.getStartDate(), classroom.getEndDate());
-                out.printf("    <td>%s</td>\n", classroom.getRoom());
-                out.println("</tr>");
-            }
-            out.println("</table>");
+            request.setAttribute("list", list);
+            response.setContentType("text/html;charset=UTF-8");
+            request.getRequestDispatcher("/classroom/list.jsp").include(request, response);
         } catch (Exception e) {
-            RequestDispatcher 요청배달자 = request.getRequestDispatcher("/error");
             request.setAttribute("error", e);
             request.setAttribute("title", "강의 목록조회 실패");
-            요청배달자.forward(request, response);
+            request.getRequestDispatcher("/error.jsp").forward(request, response);
         }
-        out.println("</body>");
-        out.println("</html>");
     }
     
 }

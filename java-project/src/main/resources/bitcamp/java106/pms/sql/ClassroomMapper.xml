@@ -12,10 +12,16 @@
     <result column="edt" property="endDate"/>
     <result column="room" property="room"/>
   </resultMap>
-
+  
   <select id="selectList" resultMap="ClassroomMap" parameterType="map">
     select crno,titl,sdt,edt,room
     from pms2_classroom
+  </select>
+  
+  <select id="selectOne" resultMap="ClassroomMap" parameterType="int">
+    select crno,titl,sdt,edt,room 
+    from pms2_classroom
+    where crno=#{value}
   </select>
   
   <insert id="insert" parameterType="Classroom" useGeneratedKeys="true" keyColumn="crno" keyProperty="no">
