@@ -13,6 +13,11 @@
       서버 관리자 화면에서 출력될 웹 애플리케이션 이름을 적는 태그이다.
     </display-name>
     
+    <!-- <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>bitcamp.java106.pms.AppConfig</param-value>
+    </context-param> -->
+    
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
         <filter-class>bitcamp.java106.pms.filter.CharacterEncodingFilter</filter-class>
@@ -21,10 +26,30 @@
             <param-value>UTF-8</param-value>
         </init-param>
     </filter>
+    
     <filter-mapping>
         <filter-name>CharacterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+    
+    <servlet>
+        <servlet-name>dispatcher</servlet-name>
+        <servlet-class>bitcamp.java106.pms.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>config/dispatcher-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>dispatcher</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+    
+    <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/error.jsp</location>
+    </error-page>
     
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>

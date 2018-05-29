@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,8 +11,7 @@
 <jsp:include page="/header.jsp"/>
 
 <h1>팀 보기(MVC + JSP 전용 태그 + EL + JSTL)</h1>
-<jsp:useBean id="team" class="bitcamp.java106.pms.domain.Team" scope="request"/>
-<form action="update" method="post">
+<form action="update.do" method="post">
 <table border='1'>
 <tr>
     <th>팀명</th>
@@ -33,15 +31,15 @@
 </tr>
 <tr>
     <th>종료일</th>
-    <td><input type="text" name="endDate" value='${team.endDate}'></td>
+    <td><input type="date" name="endDate" value='${team.endDate}'></td>
 </tr>
 </table>
 
 <p>
-<a href='list'>목록</a>
+<a href='list.do'>목록</a>
 <button>변경</button>
-<a href='delete?name=${team.name}'>삭제</a>
-<a href='../task/list?teamName=${team.name}'>작업목록</a>
+<a href='delete.do?name=${team.name}'>삭제</a>
+<a href='../task/list.do?teamName=${team.name}'>작업목록</a>
 </p>
 </form>
 

@@ -1,0 +1,37 @@
+package bitcamp.java106.pms.controller.board;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.stereotype.Component;
+
+import bitcamp.java106.pms.controller.PageController;
+import bitcamp.java106.pms.dao.BoardDao;
+import bitcamp.java106.pms.domain.Board;
+import bitcamp.java106.pms.web.RequestMapping;
+
+@Component("/board/update")
+public class BoardUpdateController {
+
+    BoardDao boardDao;
+    
+    public BoardUpdateController(BoardDao boardDao) {
+        this.boardDao = boardDao;
+    }
+
+    @RequestMapping
+    public String update(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        Board board = new Board();
+        board.setNo(Integer.parseInt(request.getParameter("no")));
+        board.setTitle(request.getParameter("title"));
+        board.setContent(request.getParameter("content"));
+
+        int count = boardDao.update(board);
+        if (count == 0) {
+            throw new Exception("해당 게시물이 존재하지 않습니다.");
+        }
+
+        return "redirect:list.do";
+    }
+
+}
