@@ -1,5 +1,8 @@
-package bitcamp.java106.pms.controller.auth;
+package bitcamp.java106.pms.web;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -7,24 +10,22 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Component;
 
-import bitcamp.java106.pms.controller.PageController;
 import bitcamp.java106.pms.dao.MemberDao;
 import bitcamp.java106.pms.domain.Member;
+import bitcamp.java106.pms.web.RequestMapping;
 
-@Component("/auth/login")
-public class LoginController implements PageController {
+@Component("/auth")
+public class AuthController {
     
     MemberDao memberDao;
     
-    public LoginController(MemberDao memberDao) {
+    public AuthController(MemberDao memberDao) {
         this.memberDao = memberDao;
     }
     
-    @Override
-    public String service(HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-        String id = request.getParameter("id");
-        String password = request.getParameter("password");
+    @RequestMapping("/login")
+    public String login(@RequestParam("id") String id, @RequestParam("password") String password, @RequestParam("saveId") String saveId, 
+                        HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception {
 
         Cookie cookie = null;
         if (request.getParameter("saveId") != null) {
@@ -37,8 +38,6 @@ public class LoginController implements PageController {
         response.addCookie(cookie);
 
         Member member = memberDao.selectOneWithPassword(id, password);
-
-        HttpSession session = request.getSession();
 
         if (member != null) {
             session.setAttribute("loginUser", member);
@@ -53,6 +52,11 @@ public class LoginController implements PageController {
             session.invalidate();
             return "/auth/fail.jsp";
         }
-
+    }
+    
+    @RequestMapping("/logout")
+    public String logout(HttpServletRequest request, HttpSession session) throws ServletException, IOException {
+        request.getSession().invalidate();
+        return "redirect:" + request.getContextPath();
     }
 }

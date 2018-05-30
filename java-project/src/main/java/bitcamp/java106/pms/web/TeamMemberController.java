@@ -1,6 +1,8 @@
-package bitcamp.java106.pms.controller.teammember;
+package bitcamp.java106.pms.web;
 
 import java.net.URLEncoder;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,24 +16,21 @@ import bitcamp.java106.pms.domain.Member;
 import bitcamp.java106.pms.domain.Team;
 import bitcamp.java106.pms.web.RequestMapping;
 
-@Component("/team/member/add")
-public class TeamMemberAddController {
+@Component("/team/member")
+public class TeamMemberController {
     
     TeamDao teamDao;
     MemberDao memberDao;
     TeamMemberDao teamMemberDao;
     
-    public TeamMemberAddController(TeamDao teamDao, MemberDao memberDao, TeamMemberDao teamMemberDao) {
+    public TeamMemberController(TeamDao teamDao, MemberDao memberDao, TeamMemberDao teamMemberDao) {
         this.teamDao = teamDao;
         this.memberDao = memberDao;
         this.teamMemberDao = teamMemberDao;
     }
     
-    @RequestMapping
-    public String add(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        String teamName = request.getParameter("teamName");
-        String memberId = request.getParameter("memberId");
-
+    @RequestMapping("/add")
+    public String add(@RequestParam("teamName") String teamName, @RequestParam("memberId") String memberId) throws Exception {
         Team team = teamDao.selectOne(teamName);
         if (team == null) {
             throw new Exception(teamName + " 팀은 존재하지 않습니다.");
@@ -45,5 +44,21 @@ public class TeamMemberAddController {
         }
         teamMemberDao.insert(teamName, memberId);
         return "redirect:../view.do?name=" + URLEncoder.encode(teamName, "UTF-8");
+    }
+    
+    @RequestMapping("/delete")
+    public String delete(@RequestParam("teamName") String teamName, @RequestParam("memberId") String memberId) throws Exception {
+        int count = teamMemberDao.delete(teamName, memberId);
+        if (count == 0) {
+            throw new Exception("<p>해당 팀원이 존재하지 않습니다.</p>");
+        }
+        return "redirect:../view.do?name=" + URLEncoder.encode(teamName, "UTF-8");
+    }
+    
+    @RequestMapping("/list")
+    public String list(@RequestParam("name") String name, Map<String,Object> map) throws Exception {
+        List<Member> members = teamMemberDao.selectListWithEmail(name);
+        map.put("members", members);
+        return "/team/member/list.jsp";
     }
 }
