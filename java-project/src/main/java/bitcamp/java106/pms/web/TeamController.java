@@ -4,15 +4,19 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import bitcamp.java106.pms.dao.TaskDao;
 import bitcamp.java106.pms.dao.TeamDao;
 import bitcamp.java106.pms.dao.TeamMemberDao;
 import bitcamp.java106.pms.domain.Team;
 
-@Component("/team")
+@Controller
+@RequestMapping("/team")
 public class TeamController {
-    
+
     TeamDao teamDao;
     TeamMemberDao teamMemberDao;
     TaskDao taskDao;
@@ -25,23 +29,26 @@ public class TeamController {
     
     @RequestMapping("/add")
     public String add(Team team) throws Exception {
+        
         teamDao.insert(team);
         return "redirect:list.do";
     }
     
     @RequestMapping("/delete")
     public String delete(@RequestParam("name") String name) throws Exception {
+        
         teamMemberDao.delete(name);
         taskDao.deleteByTeam(name);
         int count = teamDao.delete(name);
         if (count == 0) {
-            throw new Exception("해당 팀이 없습니다.");
+            throw new Exception ("해당 팀이 없습니다.");
         }
         return "redirect:list.do";
     }
     
     @RequestMapping("/list")
     public String list(Map<String,Object> map) throws Exception {
+        
         List<Team> list = teamDao.selectList();
         map.put("list", list);
         return "/team/list.jsp";
@@ -49,15 +56,19 @@ public class TeamController {
     
     @RequestMapping("/update")
     public String update(Team team) throws Exception {
+        
         int count = teamDao.update(team);
         if (count == 0) {
-            throw new Exception("해당 이름의 팀이 없습니다.");
+            throw new Exception("<p>해당 팀이 존재하지 않습니다.</p>");
         }
         return "redirect:list.do";
     }
     
     @RequestMapping("/view")
-    public String view(@RequestParam("name") String name, Map<String,Object> map) throws Exception {
+    public String view(
+            @RequestParam("name") String name,
+            Map<String,Object> map) throws Exception {
+        
         Team team = teamDao.selectOneWithMembers(name);
         if (team == null) {
             throw new Exception("유효하지 않은 팀입니다.");

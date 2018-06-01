@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" 
+    contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,30 +13,30 @@
 <form action='update.do' method='post'>
 <input type='hidden' name='no' value='${classroom.no}'>
 <table border='1'>
-    <tr>
-        <th>강의명</th>
-        <td><input type='text' name='title' value='${classroom.title}'></td>
-    </tr>
-    <tr>
-        <th>시작일</th>
-        <td><input type='date' name='startDate' value='${classroom.startDate}'></td>
-    </tr>
-    <tr>
-        <th>종료일</th>
-        <td><input type='date' name='endDate' value='${classroom.endDate}'></td>
-    </tr>
-    <tr>
-        <th>강의실</th>
-        <td><input type='text' name='room' value='${classroom.room}'></td>
-    </tr>
+<tr>
+    <th>강의명</th>
+    <td><input type='text' name='title' value='${classroom.title}'></td>
+</tr>
+<tr>
+    <th>시작일</th>
+    <td><input type='date' name='startDate' value='${classroom.startDate}'></td>
+</tr>
+<tr>
+    <th>종료일</th>
+    <td><input type='date' name='endDate' value='${classroom.endDate}'></td>
+</tr>
+<tr>
+    <th>강의실</th>
+    <td><input type='text' name='room' value='${classroom.room}'></td>
+</tr>
 </table>
-
 <p>
 <a href='list.do'>목록</a>
 <button>변경</button>
 <a href='delete.do?no=${classroom.no}'>삭제</a>
 </p>
 </form>
-
 </body>
 </html>
+
+    

@@ -13,21 +13,13 @@ public class Team implements Serializable {
     private Date startDate;
     private Date endDate;
     private List<Member> members;
-    
+
     public List<Member> getMembers() {
         return members;
     }
 
     public void setMembers(List<Member> members) {
         this.members = members;
-    }
-
-    public Team() {
-        
-    }
-    
-    public Team(String name) {
-        this.name = name;
     }
 
     public String getName() {
@@ -74,10 +66,9 @@ public class Team implements Serializable {
         this.endDate = endDate;
         return this;
     }
-
+    
     @Override
     public String toString() {
         return "Team [name=" + name + ", startDate=" + startDate + ", endDate=" + endDate + "]";
     }
-    
 }

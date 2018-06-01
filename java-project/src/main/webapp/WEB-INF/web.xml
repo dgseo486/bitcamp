@@ -5,39 +5,34 @@
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
   version="4.0"
   metadata-complete="false">
+
     <description>
-      웹 애플리케이션에 대한 설명을 적는 태그이다.
+        웹 애플리케이션에 대한 설명을 적는 태그이다.
     </description>
     
     <display-name>
-      서버 관리자 화면에서 출력될 웹 애플리케이션 이름을 적는 태그이다.
+        서버 관리자 화면에서 출력될 웹 애플리케이션 이름을 적는 태그이다.
     </display-name>
-    
-    <!-- <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>bitcamp.java106.pms.AppConfig</param-value>
-    </context-param> -->
-    
+
     <filter>
         <filter-name>CharacterEncodingFilter</filter-name>
-        <filter-class>bitcamp.java106.pms.filter.CharacterEncodingFilter</filter-class>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
         <init-param>
             <param-name>encoding</param-name>
             <param-value>UTF-8</param-value>
         </init-param>
     </filter>
-    
     <filter-mapping>
         <filter-name>CharacterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    
+
     <servlet>
         <servlet-name>dispatcher</servlet-name>
-        <servlet-class>bitcamp.java106.pms.servlet.DispatcherServlet</servlet-class>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>config/dispatcher-servlet.xml</param-value>
+            <param-value>/WEB-INF/spring/dispatcher-servlet.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
@@ -59,4 +54,3 @@
     </welcome-file-list>
 
 </web-app>
-

@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" 
+    contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>     
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,13 +10,12 @@
 </head>
 <body>
 <jsp:include page="/header.jsp"/>
-<h1>강의 목록(MVC + JSP 전용 태그 + EL)</h1>
+<h1>강의 목록(MVC + JSP 전용 태그 + EL + JSTL)</h1>
 <p><a href='form.html'>새 강의</a></p>
 <table border='1'>
 <tr>
     <th>번호</th><th>강의명</th><th>기간</th><th>강의실</th>
 </tr>
-
 <c:forEach items="${list}" var="classroom">
 <tr>
     <td>${classroom.no}</td>
@@ -24,7 +24,7 @@
     <td>${classroom.room}</td>
 </tr>
 </c:forEach>
-
 </table>
 </body>
 </html>
+    

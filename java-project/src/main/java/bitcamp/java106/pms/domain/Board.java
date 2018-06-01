@@ -5,7 +5,7 @@ import java.sql.Date;
 
 public class Board implements Serializable {
     private static final long serialVersionUID = 1L;
-    
+
     private int no;
     private String title;
     private String content;
@@ -15,6 +15,7 @@ public class Board implements Serializable {
     public String toString() {
         return "Board [no=" + no + ", title=" + title + ", content=" + content + ", createdDate=" + createdDate + "]";
     }
+    
     public int getNo() {
         return no;
     }
@@ -41,4 +42,3 @@ public class Board implements Serializable {
     }
     
 }
-
