@@ -38,26 +38,24 @@ public class Exam05_4 {
     public void initBinder(WebDataBinder binder) {
         System.out.println("Exam05_4().initBinder()");
         
-        binder.registerCustomEditor(
-                java.sql.Date.class, new PropertyEditorSupport() {
-                    @Override
-                    public void setAsText(String text) throws IllegalArgumentException {
-                        this.setValue(Date.valueOf(text));
-                    }
-                });
-        
-        binder.registerCustomEditor(
-                bitcamp.mvc.vo.Member.class, new PropertyEditorSupport() {
-                    @Override
-                    public void setAsText(String text) throws IllegalArgumentException {
-                        System.out.println(text);
-                        String[] values = text.split(",");
-                        Member obj = new Member();
-                        obj.setId(values[0]);
-                        obj.setEmail(values[1]);
-                        obj.setPassword(values[2]);
-                        this.setValue(obj);
-                    }
-                });
+        binder.registerCustomEditor(java.sql.Date.class, new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException {
+                this.setValue(Date.valueOf(text));
+            }
+        });
+
+        binder.registerCustomEditor(bitcamp.mvc.vo.Member.class, new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException {
+                System.out.println(text);
+                String[] values = text.split(",");
+                Member obj = new Member();
+                obj.setId(values[0]);
+                obj.setEmail(values[1]);
+                obj.setPassword(values[2]);
+                this.setValue(obj);
+            }
+        });
     }
 }
