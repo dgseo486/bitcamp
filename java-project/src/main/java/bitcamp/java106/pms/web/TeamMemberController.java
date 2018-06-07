@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,15 +23,13 @@ public class TeamMemberController {
     MemberDao memberDao;
     TeamMemberDao teamMemberDao;
     
-    public TeamMemberController(TeamDao teamDao, 
-            MemberDao memberDao,
-            TeamMemberDao teamMemberDao) {
+    public TeamMemberController(TeamDao teamDao, MemberDao memberDao, TeamMemberDao teamMemberDao) {
         this.teamDao = teamDao;
         this.memberDao = memberDao;
         this.teamMemberDao = teamMemberDao;
     }
     
-    @RequestMapping("/add")
+    @RequestMapping("add")
     public String add(
             @RequestParam("teamName") String teamName,
             @RequestParam("memberId") String memberId,
@@ -45,7 +42,7 @@ public class TeamMemberController {
         Member member = memberDao.selectOne(memberId);
         if (member == null) {
             map.put("message", "해당 회원이 없습니다!");
-            return "/team/member/fail.jsp";
+            return "team/member/fail";
         }
         
         HashMap<String,Object> params = new HashMap<>();
@@ -54,14 +51,13 @@ public class TeamMemberController {
         
         if (teamMemberDao.isExist(params)) {
             map.put("message", "이미 등록된 회원입니다.");
-            return "/team/member/fail.jsp";
+            return "team/member/fail";
         }
         teamMemberDao.insert(params);
-        return "redirect:../view.do?name=" + 
-                URLEncoder.encode(teamName, "UTF-8");
+        return "redirect:../" + URLEncoder.encode(teamName, "UTF-8");
     }
     
-    @RequestMapping("/delete")
+    @RequestMapping("delete")
     public String delete(
             @RequestParam("teamName") String teamName,
             @RequestParam("memberId") String memberId,
@@ -76,17 +72,12 @@ public class TeamMemberController {
             map.put("message", "해당 회원이 없습니다!");
             return "/team/member/fail.jsp";
         }
-        return "redirect:../view.do?name=" + 
-                URLEncoder.encode(teamName, "UTF-8");
+        return "redirect:../" + URLEncoder.encode(teamName, "UTF-8");
     }
     
-    @RequestMapping("/list")
-    public String list(
-            @RequestParam("name") String teamName,
-            Map<String,Object> map) throws Exception {
-       
+    @RequestMapping("list")
+    public void list(@RequestParam("name") String teamName, Map<String,Object> map) throws Exception {
         List<Member> members = teamMemberDao.selectListWithEmail(teamName);
         map.put("members", members);
-        return "/team/member/list.jsp";
     }
 }

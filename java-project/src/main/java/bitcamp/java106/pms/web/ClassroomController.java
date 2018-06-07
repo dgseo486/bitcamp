@@ -1,13 +1,10 @@
 package bitcamp.java106.pms.web;
 
-import java.beans.PropertyEditorSupport;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -24,53 +21,48 @@ public class ClassroomController {
         this.classroomDao = classroomDao;
     }
     
+    @RequestMapping("/form")
+    public void form() {
+    }
+    
     @RequestMapping("/add")
     public String add(Classroom classroom) throws Exception {
-        
         classroomDao.insert(classroom);
-        return "redirect:list.do";
+        return "redirect:list";
     }
     
     @RequestMapping("/delete")
     public String delete(@RequestParam("no") int no) throws Exception {
-     
         int count = classroomDao.delete(no);
         if (count == 0) {
             throw new Exception("<p>해당 강의가 없습니다.</p>");
         }
-        return "redirect:list.do";
+        return "redirect:list";
     }
     
     @RequestMapping("/list")
-    public String list(Map<String,Object> map) throws Exception {
-     
+    public void list(Map<String,Object> map) throws Exception {
         List<Classroom> list = classroomDao.selectList();
         map.put("list", list);
-        return "/classroom/list.jsp";
     }
     
     @RequestMapping("/update")
     public String update(Classroom classroom) throws Exception {
-     
         int count = classroomDao.update(classroom);
         if (count == 0) {
             throw new Exception("해당 강의가 존재하지 않습니다.");
         }
-        return "redirect:list.do";
+        return "redirect:list";
     }
     
-    @RequestMapping("/view")
-    public String view(
-            @RequestParam("no") int no, 
-            Map<String,Object> map) throws Exception {
-     
+    @RequestMapping("{no}")
+    public String view(@PathVariable int no, Map<String,Object> map) throws Exception {
         Classroom classroom = classroomDao.selectOne(no);
-
         if (classroom == null) {
             throw new Exception("유효하지 않은 강의입니다.");
         }
         map.put("classroom", classroom);
-        return "/classroom/view.jsp";
+        return "classroom/view";
     }
     
     /*@InitBinder
