@@ -8,7 +8,7 @@ import bitcamp.java106.pms.domain.Task;
 public interface TaskDao {
     int delete(int no);
     int deleteByTeam(String teamName);
-    List<Task> selectList(String teamName);
+    List<Task> selectList(Map<String, Object> map);
     int insert(Task task);
     int update(Task task);
     Task selectOne(int no);

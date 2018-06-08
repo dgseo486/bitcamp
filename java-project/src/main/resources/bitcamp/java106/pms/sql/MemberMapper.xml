@@ -11,11 +11,10 @@
     <result column="pwd" property="password"/>
   </resultMap>
   
-  <select id="selectList" 
-          resultMap="MemberMap" parameterType="map">
+  <select id="selectList" resultMap="MemberMap" parameterType="map">
     select mid, email, pwd 
     from pms2_member
-    <!--  limit #{startIndex}, #{pageSize} -->
+    limit #{startRowNo}, #{pageSize}
   </select>
   
   <insert id="insert" parameterType="Member">

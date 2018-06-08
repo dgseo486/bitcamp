@@ -7,7 +7,7 @@ import bitcamp.java106.pms.domain.Member;
 
 public interface MemberDao {
     int delete(String id);
-    List<Member> selectList();
+    List<Member> selectList(Map<String,Object> map);
     int insert(Member member);
     int update(Member member);
     Member selectOne(String id);

@@ -13,11 +13,10 @@
     <result column="room" property="room"/>
   </resultMap>
   
-  <select id="selectList" 
-          resultMap="ClassroomMap" parameterType="map">
+  <select id="selectList" resultMap="ClassroomMap" parameterType="map">
     select crno,titl,sdt,edt,room 
     from pms2_classroom
-    <!--  limit #{startIndex}, #{pageSize} -->
+    limit #{startRowNo}, #{pageSize}
   </select>
   
   <select id="selectOne" 

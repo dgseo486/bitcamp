@@ -20,4 +20,13 @@
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+    
+    <mvc:interceptors>
+        <!-- <bean class="bitcamp.mvc.web.Exam09_1_interceptor"/> -->
+        <mvc:interceptor>
+            <mvc:mapping path="/exam09_1/**"/>
+            <mvc:exclude-mapping path="/exam09_1/bbb/**"/>
+            <bean class="bitcamp.mvc.web.Exam09_1_interceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>

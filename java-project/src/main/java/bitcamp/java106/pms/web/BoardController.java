@@ -23,19 +23,19 @@ public class BoardController {
         this.boardDao = boardDao;
     }
     
-    @RequestMapping("/form")
+    @RequestMapping("form")
     public void form(/*Model model*/) {
         //model.addAttribute("프로퍼티명", "값");
     }
     
-    @RequestMapping("/add")
+    @RequestMapping("add")
     public String add(Board board) throws Exception {
         
         boardDao.insert(board);
         return "redirect:list";
     }
     
-    @RequestMapping("/delete")
+    @RequestMapping("delete")
     public String delete(@RequestParam("no") int no) throws Exception {
         int count = boardDao.delete(no);
         if (count == 0) {
@@ -44,7 +44,7 @@ public class BoardController {
         return "redirect:list";
     }
     
-    @RequestMapping("/list{page}")
+    @RequestMapping("list{page}")
     public void list(
             @MatrixVariable(defaultValue="1") int pageNo, 
             @MatrixVariable(defaultValue="3") int pageSize,
@@ -58,7 +58,7 @@ public class BoardController {
         map.put("list", list);
     }
     
-    @RequestMapping("/update")
+    @RequestMapping("update")
     public String update(Board board) throws Exception {
         
         int count = boardDao.update(board);

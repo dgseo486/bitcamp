@@ -1,9 +1,11 @@
 package bitcamp.java106.pms.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.MatrixVariable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,17 +23,17 @@ public class ClassroomController {
         this.classroomDao = classroomDao;
     }
     
-    @RequestMapping("/form")
+    @RequestMapping("form")
     public void form() {
     }
     
-    @RequestMapping("/add")
+    @RequestMapping("add")
     public String add(Classroom classroom) throws Exception {
         classroomDao.insert(classroom);
         return "redirect:list";
     }
     
-    @RequestMapping("/delete")
+    @RequestMapping("delete")
     public String delete(@RequestParam("no") int no) throws Exception {
         int count = classroomDao.delete(no);
         if (count == 0) {
@@ -40,13 +42,21 @@ public class ClassroomController {
         return "redirect:list";
     }
     
-    @RequestMapping("/list")
-    public void list(Map<String,Object> map) throws Exception {
-        List<Classroom> list = classroomDao.selectList();
+    @RequestMapping("list{page}")
+    public void list(
+            @MatrixVariable(defaultValue="1") int pageNo,
+            @MatrixVariable(defaultValue="3") int pageSize,
+            Map<String,Object> map) throws Exception {
+        
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("startRowNo", (pageNo - 1) * pageSize);
+        params.put("pageSize", pageSize);
+        
+        List<Classroom> list = classroomDao.selectList(params);
         map.put("list", list);
     }
     
-    @RequestMapping("/update")
+    @RequestMapping("update")
     public String update(Classroom classroom) throws Exception {
         int count = classroomDao.update(classroom);
         if (count == 0) {
