@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import bitcamp.java106.pms.dao.MemberDao;
 import bitcamp.java106.pms.domain.Member;
+import bitcamp.java106.pms.service.MemberService;
 
 @Controller
 @RequestMapping("/member")
 public class MemberController {
 
-    MemberDao memberDao;
+    MemberService memberService;
     
-    public MemberController(MemberDao memberDao) {
-        this.memberDao = memberDao;
+    public MemberController(MemberService memberService) {
+        this.memberService = memberService;
     }
     
     @RequestMapping("form")
@@ -29,13 +29,13 @@ public class MemberController {
     
     @RequestMapping("add")
     public String add(Member member) throws Exception {
-        memberDao.insert(member);
+        memberService.add(member);
         return "redirect:list";
     }
     
     @RequestMapping("delete")
     public String delete(@RequestParam("id") String id) throws Exception {
-        int count = memberDao.delete(id);
+        int count = memberService.delete(id);
         if (count == 0) {
             throw new Exception("해당 회원이 없습니다.");
         }
@@ -48,17 +48,12 @@ public class MemberController {
             @MatrixVariable(defaultValue="3") int pageSize,
             Map<String, Object> map) throws Exception {
         
-        HashMap<String, Object> params = new HashMap<>();
-        params.put("startRowNo", (pageNo - 1) * pageSize);
-        params.put("pageSize", pageSize);
-        
-        List<Member> list = memberDao.selectList(params);
-        map.put("list", list);
+        map.put("list", memberService.list(pageNo, pageSize));
     }
     
     @RequestMapping("update")
     public String update(Member member) throws Exception {
-        int count = memberDao.update(member);
+        int count = memberService.update(member);
         if (count == 0) {
             throw new Exception("해당 회원이 존재하지 않습니다.");
         }
@@ -67,7 +62,7 @@ public class MemberController {
     
     @RequestMapping("{id}")
     public String view(@PathVariable String id, Map<String,Object> map) throws Exception {
-        Member member = memberDao.selectOne(id);
+        Member member = memberService.get(id);
         if (member == null) {
             throw new Exception("유효하지 않은 멤버 아이디입니다.");
         }

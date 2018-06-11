@@ -1,7 +1,5 @@
 package bitcamp.java106.pms.web;
 
-import java.util.HashMap;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,17 +9,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import bitcamp.java106.pms.dao.MemberDao;
-import bitcamp.java106.pms.domain.Member;
+import bitcamp.java106.pms.service.MemberService;
 
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
     
-    MemberDao memberDao;
+    MemberService memberService;
     
-    public AuthController(MemberDao memberDao) {
-        this.memberDao = memberDao;
+    public AuthController(MemberService memberService) {
+        this.memberService = memberService;
     }
     
     @RequestMapping("/form")
@@ -47,14 +44,8 @@ public class AuthController {
         }
         response.addCookie(cookie);
         
-        HashMap<String,Object> params = new HashMap<>();
-        params.put("id", id);
-        params.put("password", password);
-        
-        Member member = memberDao.selectOneWithPassword(params);
-        
-        if (member != null) {
-            session.setAttribute("loginUser", member);
+        if (memberService.isExist(id, password)) {
+            session.setAttribute("loginUser", memberService.get(id));
 
             String refererUrl = (String)session.getAttribute("refererUrl");
             

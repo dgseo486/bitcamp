@@ -12,4 +12,5 @@ public interface MemberDao {
     int update(Member member);
     Member selectOne(String id);
     Member selectOneWithPassword(Map<String,Object> params);
+    int count(Map<String, Object> params);
 }
