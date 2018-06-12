@@ -7,8 +7,8 @@ import bitcamp.java106.pms.domain.Team;
 
 public interface TeamService {
     List<Team> list(int pageNo, int pageSize);
-    Team getWithMembers(String name);
     Team get(String name);
+    Team getWithMembers(String name);
     int add(Team team);
     int update(Team team);
     int delete(String name);

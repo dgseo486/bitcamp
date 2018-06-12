@@ -40,7 +40,7 @@ public class TeamServiceImpl implements TeamService {
     }
     
     public Team getWithMembers(String name) {
-        return teamDao.selectOne(name);
+        return teamDao.selectOneWithMembers(name);
     }
     
     public int add(Team team) {

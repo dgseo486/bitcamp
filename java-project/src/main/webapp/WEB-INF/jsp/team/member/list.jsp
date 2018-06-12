@@ -18,11 +18,3 @@
 </tr>
 </c:forEach>
 </table>
-
-
-
-
-
-
-
-    

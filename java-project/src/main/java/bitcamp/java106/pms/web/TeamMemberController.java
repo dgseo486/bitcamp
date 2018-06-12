@@ -61,13 +61,15 @@ public class TeamMemberController {
         int count = teamService.deleteMember(teamName, memberId);
         if (count == 0) {
             map.put("message", "해당 회원이 없습니다!");
-            return "/team/member/fail.jsp";
+            return "/team/member/fail";
         }
         return "redirect:../" + URLEncoder.encode(teamName, "UTF-8");
     }
     
     @RequestMapping("list")
-    public void list(@RequestParam("name") String teamName, Map<String,Object> map) throws Exception {
+    public void list(
+            @RequestParam("name") String teamName, 
+            Map<String,Object> map) throws Exception {
         map.put("members", teamService.getMembersWithEmail(teamName));
     }
 }
