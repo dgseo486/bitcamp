@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex09</title>
+</head>
+<body>
+<h1>변수 - 자바스크립트 변수의 다양한 방법</h1>
+<script>
+  "use strict";
+  
+  var v1;
+  v1 = "홍길동";
+  console.log(v1);
+  console.log(window.v1);
+  console.log(window["v1"]);
+  console.log(window['v1']);
+  
+  window["오호라 ^^"] = 100;
+  console.log(window["오호라 ^^"]);
+  console.log(window['오호라 ^^']);
+  
+  console.log(window.오호라 ^^); // 실행 오류
+</script>
+</body>
+</html>

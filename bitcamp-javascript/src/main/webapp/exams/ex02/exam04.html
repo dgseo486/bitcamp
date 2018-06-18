@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex04</title>
+</head>
+<body>
+<h1>변수 - strict 모드 사용</h1>
+<script>
+  v1 = "문자열";
+  console.log(v1);
+</script>
+
+<script>
+  "use strict";
+  var v2;
+  v2 = 100;
+  console.log(v2);
+  
+  v3 = 100;
+  console.log(v3);
+</script>
+
+<script>
+  v4 = true;
+  console.log(v4);
+</script>
+
+<script>
+  console.log("strict 모드는 script 태그에서 첫 번째 문장으로 와야 한다.");
+  "use strict";
+  v5 = 3.14;
+  console.log(v5);
+</script>
+
+<script>
+  "use strict";
+  console.log("strict 모드는 script 태그에서 첫 번째 문장으로 와야 한다.");
+  v6 = null;
+  console.log(v6);
+</script>
+
+</body>
+</html>

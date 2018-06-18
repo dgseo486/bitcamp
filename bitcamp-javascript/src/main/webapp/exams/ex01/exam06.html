@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex06</title>
+<script>
+  var v1 = "Hello";
+  function f1(str){console.log(str);}
+  //console.log(v2);
+  function f2() {console.log(v2);}
+  //f2();
+</script>
+</head>
+<body>
+<h1>script에 선언된 자바스크립트의 사용 범위</h1>
+<script>
+  console.log(v1);
+  f1("안녕하세요.");
+  
+  var v2 = "반가워요";
+  f2();
+</script>
+</body>
+</html>

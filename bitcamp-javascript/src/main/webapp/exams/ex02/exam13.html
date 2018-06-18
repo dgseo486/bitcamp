@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex13</title>
+</head>
+<body>
+<h1>변수 - 로컬 변수와 블록</h1>
+<script>
+  "use script"
+  
+  var v1 = "홍길동";
+  
+  function f1() {
+	  var v1 = "임꺽정";
+	  {
+        var v1 = "유관순";
+	    var v2 = 100;
+	    console.log("f1():", v1, v2);
+	  }
+  }
+  f1();
+</script>
+</body>
+</html>
