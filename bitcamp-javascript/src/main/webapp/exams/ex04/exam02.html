@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex02</title>
+</head>
+<body>
+<h1>객체 - 프로퍼티 추가</h1>
+<script>
+  var obj = new Object();
+
+  console.log(obj.toString());
+  console.log(obj.valueOf());
+  console.log(obj.hasOwnProperty("toString"));
+  console.log(obj.hasOwnProperty("hashCode"));
+  
+  obj.title = "제목입니다.";
+  obj["content"] = "내용입니다.";
+  obj['viewCount'] = 120;
+  
+  obj.plus = (a, b) => console.log("합계=", a + b);
+  
+  console.log(obj.hasOwnProperty("title"));
+  console.log(obj.hasOwnProperty("content"));
+  console.log(obj.hasOwnProperty("viewCount"));
+  console.log(obj.hasOwnProperty("plus"));
+  
+  console.log(obj["title"]);
+  console.log(obj['content']);
+  console.log(obj.viewCount);
+  obj.plus(100, 200);
+</script>
+</body>
+</html>

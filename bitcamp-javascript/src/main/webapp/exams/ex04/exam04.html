@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex04</title>
+</head>
+<body>
+<h1>객체 - 객체에 소속된 함수가 같은 객체에 소속된 변수나 함수 사용하기</h1>
+<script>
+"use strict"
+
+var obj = new Object();
+
+obj.name = "홍길동";
+obj.kor = 100;
+obj.eng = 90;
+obj.math = 80;
+obj.toString = function(){
+	return this.name + "," + this.kor + "," + this.eng + "," + this.math;
+};
+console.log(obj.toString());
+console.log(obj);
+
+obj.sum = function(){
+	return this.kor + this.eng + this.math;
+}
+
+obj.aver = function(){
+	return this.sum() / 3;
+}
+
+console.log(obj.sum(), obj.aver());
+
+</script>
+</body>
+</html>

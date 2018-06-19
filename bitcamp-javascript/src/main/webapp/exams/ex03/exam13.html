@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex13</title>
+</head>
+<body>
+<h1>함수 - 애로우(Arrow) 함수를 아규먼트로 전달하기</h1>
+<script>
+  "use strict"
+  
+  function play(fn){
+	  console.log("함수가 리턴한 값 =", fn(100, 200));
+  }
+  function plus(a, b){
+	  return a + b;
+  }
+  play(plus);
+  play(function(a, b){ return a - b; });
+  play((a, b) => a * b);
+  play((a, b) => {
+	  var sum = 0;
+	  for (var i = a; i <= b; i++) {
+		  sum += i;
+	  }
+	  return sum;
+  });
+</script>
+</body>
+</html>

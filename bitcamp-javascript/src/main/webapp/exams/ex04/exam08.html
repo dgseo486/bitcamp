@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex08</title>
+</head>
+<body>
+<h1>객체 - {} 문법과 arrow function</h1>
+<script>
+"use strict"
+
+var obj = {
+	name: "홍길동",
+	kor:100,
+	eng:90, 
+	math:80,
+	test1: () => console.log(this),
+	test2: function() {console.log(this);},
+	sum: () => this.kor + this.eng + this.math,
+	aver: () => this.sum() / 3
+};
+
+obj.test1();
+obj.test2();
+
+console.log(obj.sum());
+console.log(obj.aver());
+
+</script>
+</body>
+</html>

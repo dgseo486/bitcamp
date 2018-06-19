@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex10</title>
+</head>
+<body>
+<h1>함수 - 함수 리턴하기</h1>
+<script>
+  "use strict"
+  function interestCalculator(type){
+	  switch(type){
+	  case "보통예금":
+		  return function(money, month) {return money + (money * 0.0015 * month);};
+	  case "정기예금":
+		  return function(money, month) {return money + (money * 0.0025 * month);};
+	  default:
+		  return function(money, month) {return money;};
+	  }
+  }
+  
+  var fn = interestCalculator("보통예금");
+  console.log("100만원 7달 =", fn(10000000000, 12));
+</script>
+</body>
+</html>
