@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex11</title>
+</head>
+<body>
+<h1>객체 - 인스턴스 함수를 공유하는 방법</h1>
+<script>
+"use strict"
+
+function Score(name, kor, eng, math){
+	this.name = name;
+	this.kor = kor;
+	this.eng = eng;
+	this.math = math;
+	/* 
+	this.sum = function() {
+		return this.kor + this.eng + this.math
+	};
+	this.aver = function() {
+		return this.sum() / 3
+	}; 
+	*/
+}
+
+Score.prototype.sum = function(){
+	return this.kor + this.eng + this.math
+};
+
+Score.prototype.aver = function(){
+    return this.sum() / 3
+};
+
+var scores = [];
+scores[0] = new Score("홍길동", 100, 100, 100);
+scores[1] = new Score("임꺽정", 90, 90, 90);
+scores[2] = new Score("유관순", 80, 80, 80);
+
+for(var score of scores){
+    console.log(score.name, score.kor, score.eng, score.math, score.sum(), score.aver());
+}
+
+//scores[0].okok();
+
+console.log(scores[0]);
+console.log(scores[1]);
+console.log(scores[2]);
+</script>
+</body>
+</html>

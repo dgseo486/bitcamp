@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex12</title>
+</head>
+<body>
+<h1>객체 - 함수 객체에 직접 추가하는 함수와 prototype에 추가하는 함수</h1>
+<script>
+"use strict"
+function Score(name, kor, eng, math){
+	this.name = name;
+	this.kor = kor;
+	this.eng = eng;
+	this.math = math;
+}
+Score.prototype.sum = function(){
+	return this.kor + this.eng + this.math
+};
+Score.prototype.aver = function(){
+    return this.sum() / 3
+};
+
+Score.count = 0;
+Score.f = function(){
+	console.log("Hello");
+}
+
+var s = new Score("홍길동", 100, 100, 100);
+console.log(s.sum())
+console.log(s.aver())
+
+//s.f(); // prototype에 저장된 함수가 아니기 때문에 객체를 통해 호출할 수 없다.
+//count와 f()는 생성자를 통해 직접 사용해야 한다.
+Score.count = 100;
+Score.f();
+
+</script>
+</body>
+</html>

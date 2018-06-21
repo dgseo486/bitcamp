@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex19-5</title>
+</head>
+<body>
+<h1>반복문 - for(... of ...)</h1>
+<script>
+"use script"
+var obj = {
+	name: "홍길동",
+	age: 20,
+	tel: "1111-1111",
+	working: true
+};
+/* 
+for(var i of obj){
+    console.log(i);
+}
+console.log("----------------------");
+*/
+
+var obj2 = new Map();
+obj2.set("name", "홍길동");
+obj2.set("set", 20);
+obj2.set("tel", "1111-1111");
+obj2.set("working", true);
+
+for(var x of obj2){
+    console.log(x);
+    console.log(x[0], "=", x[1]);
+}
+
+console.log("----------------------");
+
+for(var [key, value] of obj2){
+    console.log(key, "=", value);
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex01</title>
+</head>
+<body>
+<h1>DOM API - id 값으로 태그 찾기</h1>
+<h1 id="header1" class="g1">제목1</h1>
+<h2 id="header2" class="g1">제목1.1</h2>
+<h2 id="header3" class="g1">제목1.2</h2>
+
+<h1 id="header4" class="g2">제목2</h1>
+<h2 id="header5" class="g2">제목2.1</h2>
+<h2 id="header6" class="g2">제목2.2</h2>
+<script>
+"use strict"
+
+var e1 = document.getElementById("header4");
+console.log(e1.name);
+console.log(e1.localName);
+console.log(e1.constructor.name);
+console.log(e1 instanceof HTMLHeadingElement);
+console.log(e1 instanceof HTMLElement);
+console.log(e1 instanceof Element);
+console.log(e1 instanceof Node);
+console.log(e1 instanceof EventTarget);
+console.log(e1 instanceof Object);
+</script>
+</body>
+</html>
