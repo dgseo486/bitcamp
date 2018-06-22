@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex04-5</title>
+</head>
+<body>
+<h1>DOM API - appendChild() 응용</h1>
+<section>
+    <img src="../img01.jpg" style="height:200px;">
+    <img src="../img02.jpg" style="height:200px;">
+    <img src="../img03.jpg" style="height:200px;">
+    <img src="../img04.jpg" style="height:200px;">
+    <img src="../img05.jpg" style="height:200px;">
+</section>
+<script>
+"use strict"
+var parent = document.querySelector("section");
+window.setInterval(() => {
+    var img = document.querySelector("section > img:first-child");
+	parent.appendChild(img);
+}, 2000);
+</script>
+</body>
+</html>

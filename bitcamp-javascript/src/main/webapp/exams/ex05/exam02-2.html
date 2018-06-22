@@ -2,10 +2,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ex02-1</title>
+<title>ex02-2</title>
 </head>
 <body>
-<h1>DOM API - 태그의 콘텐트 알아내기</h1>
+<h1>DOM API - 태그의 콘텐트 설정하기</h1>
 <section>
     <article>
         <h1 id="header1" class="g1">자바스크립트</h1>
@@ -26,13 +26,10 @@
 <script>
 "use strict"
 var e = document.querySelector("article:first-child > p");
-console.log(e);
-console.log(e.innerHTML);
-console.log("----------------------");
+e.innerHTML = "오호라 <b>비트캠프</b>입니다.<br> 반갑습니다.";
 
-console.log(e.textContent);
-console.log("----------------------");
-
+e = document.querySelector("article:last-child > p");
+e.textContent = "우헤헤 <b>비트캠프</b>입니다.<br> 반갑습니다.";
 </script>
 </body>
 </html>

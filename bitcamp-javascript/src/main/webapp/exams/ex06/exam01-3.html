@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex01-3</title>
+</head>
+<body>
+
+<h1>이벤트 - 리스너 실행 순서</h1>
+<button id = "btn1" onclick="var str='Hello'; window.alert(str);">버튼1</button><br>
+
+<script>
+"use strict"
+var btn1 = document.querySelector("#btn1");
+
+btn1.addEventListener("click", () => {
+    var str = "Hello3!";
+    window.alert(str);
+});
+
+btn1.onclick = () => {
+	var str = "Hello2!";
+	window.alert(str);
+};
+
+</script>
+
+</body>
+</html>

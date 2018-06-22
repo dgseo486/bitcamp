@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex04-1</title>
+</head>
+<body>
+<h1>DOM API - 태그 추가하기 1</h1>
+<section>
+    <article>
+        <h1 id="header1" class="g1">자바스크립트</h1>
+        <p>자바스크립트는 <b>프론트-엔드</b>를 개발할 때 사용하는 프로그래밍 언어입니다.</p>
+    </article>
+    <article>
+        <h1 id="header2" class="g1">자바</h1>
+        <p>자바는 <b>백-엔드</b>에서 사용하는 프로그래밍 언어입니다.
+        <a href='http://www.spring.io'>스프링 프레임워크</a>는 자바 백-엔드를 개발할 때 사용하는 프로그래밍 언어입니다.</p>
+    </article>
+
+</section>
+<script>
+"use strict"
+var section = document.querySelector("section");
+
+var article = document.createElement("article");
+var h1 = document.createElement("h1");
+var text = document.createTextNode("제목입니다.");
+var p = document.createElement("p");
+var text2 = document.createTextNode("내용입니다.");
+
+h1.appendChild(text);
+p.appendChild(text2);
+
+article.appendChild(h1);
+article.appendChild(p);
+
+section.appendChild(article);
+</script>
+</body>
+</html>

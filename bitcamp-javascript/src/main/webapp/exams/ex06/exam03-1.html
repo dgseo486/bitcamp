@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex03-1</title>
+</head>
+<body>
+
+<h1>이벤트 - 이벤트가 발생된 태그 알아내기</h1>
+<button id="btn1" data-no="100">버튼1</button><br>
+
+<script>
+"use strict"
+document.getElementById("btn1").addEventListener("click", function(e) {
+	console.log(this);
+	console.log(this.getAttribute("data-no"));
+});
+</script>
+
+</body>
+</html>

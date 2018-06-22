@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex01-2</title>
+</head>
+<body>
+
+<h1>이벤트 - 태그의 onclick 속성</h1>
+<button id = "btn1" onclick="var str='Hello'; window.alert(str);">버튼1</button><br>
+<button id = "btn2" onclick="btn2Click()">버튼2</button><br>
+<button id = "btn3">버튼3</button><br>
+
+<script>
+"use strict"
+function btn2Click() {
+	var str = "Hello!";
+	window.alert(str);
+};
+
+var btn3 = document.querySelector("#btn3");
+btn3.onclick = () => {
+	var str = "Hello!";
+	window.alert(str);
+};
+</script>
+
+</body>
+</html>

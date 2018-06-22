@@ -2,10 +2,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ex02-1</title>
+<title>ex03-2</title>
 </head>
 <body>
-<h1>DOM API - 태그의 콘텐트 알아내기</h1>
+<h1>DOM API - 태그의 속성(attribute) 추가하기</h1>
 <section>
     <article>
         <h1 id="header1" class="g1">자바스크립트</h1>
@@ -14,7 +14,7 @@
     <article>
         <h1 id="header2" class="g1">자바</h1>
         <p>자바는 <b>백-엔드</b>에서 사용하는 프로그래밍 언어입니다.
-        <i>스프링 프레임워크</i>는 자바 백-엔드를 개발할 때 사용하는 프로그래밍 언어입니다.</p>
+        <a href='http://www.spring.io'>스프링 프레임워크</a>는 자바 백-엔드를 개발할 때 사용하는 프로그래밍 언어입니다.</p>
     </article>
 <h2 id="header2" class="g1">제목1.1</h2>
 <h2 id="header3" class="g1">제목1.2</h2>
@@ -25,14 +25,12 @@
 </section>
 <script>
 "use strict"
-var e = document.querySelector("article:first-child > p");
-console.log(e);
-console.log(e.innerHTML);
-console.log("----------------------");
+var e = document.querySelector("article:nth-child(2) a");
+e["data-no"] = 200;
+console.log(e["data-no"]);
 
-console.log(e.textContent);
-console.log("----------------------");
-
+e.setAttribute("data-no2", 300);
+console.log(e.getAttribute("data-no2"));
 </script>
 </body>
 </html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex01-1</title>
+</head>
+<body>
+
+<h1>이벤트 - 리스너 등록하기</h1>
+<button id = "btn1" onclick="var str='Hello'; window.alert(str);">버튼1</button><br>
+<button id = "btn2">버튼2</button><br>
+<button id = "btn3">버튼3</button><br>
+
+<script>
+"use strict"
+var btn2 = document.getElementById("btn2");
+btn2.onclick = function() {
+	var str = "Hello!";
+	window.alert(str);
+};
+
+var btn3 = document.querySelector("#btn3");
+btn3.addEventListener("click", () => {
+	var str = "Hello!";
+	window.alert(str);
+});
+btn3.addEventListener("click", () => {
+    var str = "Hello!2";
+    window.alert(str);
+});
+btn3.addEventListener("click", () => {
+    var str = "Hello!3";
+    window.alert(str);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex05-4</title>
+<style>
+body, div{
+    border: 1px solid red;
+    padding: 30px;
+}
+button{
+    padding: 30px;
+}
+</style>
+</head>
+<body>
+
+<h1>이벤트 - 커스텀 이벤트 발생시키기</h1>
+<div id="d1">d1
+    <div id="d2">d2
+        <button id="btn1">버튼1</button>
+        <button id="btn2">버튼2</button>
+    </div>
+</div>
+
+<script>
+"use strict"
+document.getElementById("btn1").addEventListener("click", function(e) {
+	var myEvent = new CustomEvent("ohora", {detail: {name:"홍길동", age: 20, tel:"1111-2222"}});
+	document.getElementById("btn2").dispatchEvent(myEvent);
+});
+document.getElementById("btn2").addEventListener("ohora", function(e) {
+    console.log("버튼2...");
+    console.log("name=", e.detail.name);
+    console.log("age=", e.detail.age);
+    console.log("tel=", e.detail.tel);
+});
+</script>
+
+</body>
+</html>
