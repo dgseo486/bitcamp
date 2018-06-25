@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ex07</title>
+</head>
+<body>
+<h1>AJAX - onreadyState와 status 2</h1>
+<form>
+a: <input id="ia" type="text"><br>
+b: <input id="ib" type="text"><br>
+<button id="btn1" type="button">계산요청</button>
+<button id="btn2" type="reset">초기화</button><br>
+<textarea id="ta" rows="5" cols="40"></textarea>
+</form>
+
+<script>
+"use strict"
+var ta = document.querySelector("#ta"),
+    btn2 = document.querySelector("#btn2"),
+    ia = document.querySelector("#ia"),
+    ib = document.querySelector("#ib");
+    
+document.querySelector("#btn1").onclick = () => {
+    var xhr = new XMLHttpRequest();
+    
+    xhr.onreadystatechange = () => {
+        console.log("readyState=",xhr.readyState);
+        if(xhr.readyState == 4){
+        	if(xhr.status == 200){
+	            ta.value = xhr.responseText;
+        	} else {
+        		window.alert("서버 작업 실패!");
+        		var e = new MouseEvent("click");
+        		btn2.dispatchEvent(e);
+        	}
+        }
+    };
+    
+    xhr.open("GET", "../../jsp/test4.jsp?a=" + ia.value + "&b=" + ib.value, true);
+    xhr.send();
+    
+};
+</script>
+
+</body>
+</html>
