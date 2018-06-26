@@ -27,9 +27,14 @@ public class Exam10_2 {
     @ResponseBody
     public String list(Model model) {
         List<Board> boards = boardDao.selectList();
-        
         String json = new Gson().toJson(boards);
-        
         return json;
+    }
+    
+    @GetMapping(value="list2")
+    @ResponseBody
+    public Object list2() {
+        List<Board> boards = boardDao.selectList();
+        return boards;
     }
 }

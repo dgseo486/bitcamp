@@ -22,7 +22,6 @@ public class Exam10_3 {
     }
     
     @GetMapping(value="list")
-    @ResponseBody
     public Object list() {
         List<Board> boards = boardDao.selectList();
         return boards;
