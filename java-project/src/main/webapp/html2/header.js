@@ -1,14 +1,21 @@
-var xhr = new XMLHttpRequest();
-xhr.open("GET", "/java-project/html/header.html", false);
-xhr.send();
-header.innerHTML = xhr.responseText;
+// div#header 태그에 /html/header.html 내용을 삽입한다.
+$.get("/java-project/html2/header.html", (data) => {
+	$("#header").html(data);
+	loadLoginUser();
+});
 
-var xhr = new XMLHttpRequest();
-xhr.open("GET", "/java-project/json/auth/loginUser", false);
-xhr.send();
-if(xhr.responseText == ""){
-	location.href = "/java-project/html/auth/login.html";
-} else {
-	var data = JSON.parse(xhr.responseText);
-	username.textContent = data.id;
+function loadLoginUser() {
+	$.getJSON("/java-project/json/auth/loginUser", (data) => {
+		if (data == "") 
+			location.href = "/java-project/html2/auth/login.html";
+		else {
+			$("#username").text(data.id);
+			$("#logoutBtn").click((e) => {
+				e.preventDefault(); // 클릭했을 때 원래 하던 일이 있는데 그것을 하지 말라!
+				$.get("/java-project/json/auth/logout", () => {
+					location.href = "/java-project/html2/auth/login.html";
+				});
+			});
+		}
+	});
 }
