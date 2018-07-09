@@ -2,13 +2,15 @@
 *.classpath
 *.class
 *.log
-**/.gradle
-**/.settings
+**/.gradle/
+**/.settings/
 **/bin
 **/build
 **/temp/
 **/.vscode
+*.DS_Store
+**/node_modules
+**/package-lock.json
+**/aws.properties
 
 !build.gradle
-/.metadata/
-/.recommenders/
