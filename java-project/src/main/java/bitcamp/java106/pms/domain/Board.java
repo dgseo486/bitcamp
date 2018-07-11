@@ -3,12 +3,16 @@ package bitcamp.java106.pms.domain;
 import java.io.Serializable;
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class Board implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private int no;
     private String title;
     private String content;
+    
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date createdDate;
     
     @Override
