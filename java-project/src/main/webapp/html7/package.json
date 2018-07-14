@@ -10,7 +10,9 @@
   "dependencies": {
     "bootstrap": "^4.1.1",
     "handlebars": "^4.0.11",
-    "jquery": "~>3.0.0"
+    "jquery": "~>3.0.0",
+    "popper": "^1.0.1",
+    "popper.js": "^1.14.3"
   },
   "keywords": [],
   "description": ""

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<workbench progressCount="16" version="2.0">
+<workbench progressCount="8" version="2.0">
 <workbenchAdvisor/>
 <window height="728" maximized="true" width="1024" x="1753" y="100">
 <fastViewData fastViewLocation="1024"/>
@@ -14,7 +14,7 @@
 <coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="53" y="22"/>
 <coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="53" y="22"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
-<coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="190" y="22"/>
+<coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="114" y="22"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
@@ -28,6 +28,7 @@
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
 <part id="1"/>
+<part id="2"/>
 </presentation>
 </folder>
 </info>
@@ -35,9 +36,12 @@
 <editor id="com.tomato.exerd.editor.DiagramEditor" name="model.exerd" partName="model.exerd" path="C:/Users/tjehr/git/bitcamp/bitcamp-modeling/model.exerd" title="model.exerd" tooltip="bitcamp-modeling/model.exerd" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/bitcamp-modeling/model.exerd"/>
 </editor>
-<editor activePart="true" focus="true" id="org.eclipse.ui.DefaultTextEditor" name="ddl.sql" partName="ddl.sql" path="C:/Users/tjehr/git/bitcamp/bitcamp-modeling/ddl.sql" title="ddl.sql" tooltip="bitcamp-modeling/ddl.sql" workbook="DefaultEditorWorkbook">
+<editor id="org.eclipse.ui.DefaultTextEditor" name="ddl.sql" partName="ddl.sql" path="C:/Users/tjehr/git/bitcamp/bitcamp-modeling/ddl.sql" title="ddl.sql" tooltip="bitcamp-modeling/ddl.sql" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/bitcamp-modeling/ddl.sql"/>
-<editorState selectionLength="8462" selectionOffset="0"/>
+<editorState selectionLength="0" selectionOffset="429"/>
+</editor>
+<editor activePart="true" focus="true" id="com.tomato.exerd.editor.DiagramEditor" name="third.exerd" partName="third.exerd" title="third.exerd" tooltip="C:\Users\tjehr\Downloads\third.exerd" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" uri="file:/C:/Users/tjehr/Downloads/third.exerd"/>
 </editor>
 </editors>
 <views>
@@ -46,12 +50,6 @@
 <filters>
 <filter element=".*" isEnabled="false"/>
 </filters>
-<expanded>
-<element path="/bitcamp-modeling"/>
-</expanded>
-<selection>
-<element path="/bitcamp-modeling/ddl.sql"/>
-</selection>
 </viewState>
 </view>
 <view id="com.tomato.exerd.ui.views.thumbnail" partName="썸네일">
@@ -74,7 +72,7 @@
 <viewState/>
 </view>
 </views>
-<perspectives activePart="org.eclipse.ui.DefaultTextEditor" activePerspective="com.tomato.exerd.perspective.design">
+<perspectives activePart="com.tomato.exerd.editor.DiagramEditor" activePerspective="com.tomato.exerd.perspective.design">
 <perspective editorAreaTrimState="2" editorAreaVisible="1" fixed="0" version="0.016">
 <descriptor class="com.tomato.exerd.perspective.ExerdPerspectiveFactory" id="com.tomato.exerd.perspective.design" label="eXERD"/>
 <alwaysOnActionSet id="org.eclipse.ui.cheatsheets.actionSet"/>
@@ -182,6 +180,8 @@
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/bitcamp-modeling/model-07.exerd"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/bitcamp-modeling/model-09.exerd"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/bitcamp-modeling/ddl.sql"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" path="/bitcamp-modeling/model.exerd"/>
+<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" uri="file:/C:/Users/tjehr/Downloads/third.exerd"/>
 </editors>
 <item historyLabel="model.exerd" index="0"/>
 <item historyLabel="model.exerd" index="1"/>
@@ -201,9 +201,11 @@
 <position/>
 </item>
 <item historyLabel="model.exerd" index="1"/>
-<item active="true" historyLabel="ddl.sql" index="7">
+<item historyLabel="ddl.sql" index="7">
 <position info="not_deleted" x="8462" y="0"/>
 </item>
+<item historyLabel="model.exerd" index="8"/>
+<item active="true" historyLabel="third.exerd" index="9"/>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
@@ -221,6 +223,9 @@
 </trimLayout>
 </window>
 <mruList>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="com.tomato.exerd.editor.DiagramEditor" name="third.exerd" tooltip="C:\Users\tjehr\Downloads\third.exerd">
+<persistable uri="file:/C:/Users/tjehr/Downloads/third.exerd"/>
+</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="ddl.sql" tooltip="bitcamp-modeling/ddl.sql">
 <persistable path="/bitcamp-modeling/ddl.sql"/>
 </file>
