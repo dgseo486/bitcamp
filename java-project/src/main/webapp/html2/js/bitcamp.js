@@ -90,8 +90,7 @@ jQuery.ajax = function(url, settings) {
 	        	if (settings.dataType == "text")
 	        		settings.success(xhr.responseText);
 	        	else if (settings.dataType == "json")
-	                settings.success(
-	                		xhr.responseText == "" ? "" : JSON.parse(xhr.responseText));
+	                settings.success(xhr.responseText == "" ? "" : JSON.parse(xhr.responseText));
 	        } else {
 	        	if (settings.error) 
 	        		settings.error();
@@ -126,7 +125,7 @@ jQuery.toQueryString = function(obj) {
 	return qs;
 };
 
-jQuery.getJSON = function(url, p1, p2) {
+jQuery.getJSON = function(url, p1, p2), {
 	// 호출 예:
 	if (p1 == undefined || typeof p1 != "function") {
 		// => getJSON("board/list");

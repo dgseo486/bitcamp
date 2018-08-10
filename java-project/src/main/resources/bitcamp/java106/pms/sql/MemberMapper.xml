@@ -5,7 +5,7 @@
 
 <mapper namespace="bitcamp.java106.pms.dao.MemberDao">
 
-  <resultMap type="Member" id="MemberMap">
+  <resultMap type="bitcamp.java106.pms.domain.Member" id="MemberMap">
     <id column="mid" property="id"/>
     <result column="email" property="email"/>
     <result column="pwd" property="password"/>
@@ -24,8 +24,8 @@
   </insert>
   
   <select id="selectOne" parameterType="String" resultMap="MemberMap">
-    select mid, email 
-    from pms2_member 
+    select mid, email
+    from pms2_member
     where mid=#{value}
   </select>
   
